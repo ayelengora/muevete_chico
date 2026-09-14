@@ -121,3 +121,11 @@
 .paper-btn:hover {
   background: #fff6c4;
 }
+
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}

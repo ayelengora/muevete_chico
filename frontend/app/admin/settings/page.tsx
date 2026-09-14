@@ -59,12 +59,21 @@ export default function AdminSettingsPage() {
       </p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
         {fields.map((field) => (
-          <div key={field.key} className="space-y-1.5">
-            <Label htmlFor={field.key}>{field.label}</Label>
+          <div key={String(field.key)} className="space-y-1.5">
+            <Label htmlFor={String(field.key)}>{field.label}</Label>
             {field.area ? (
-              <Textarea id={field.key} name={field.key} rows={3} defaultValue={settings[field.key] || ""} />
+              <Textarea
+                id={String(field.key)}
+                name={String(field.key)}
+                rows={3}
+                defaultValue={settings[field.key] || ""}
+              />
             ) : (
-              <Input id={field.key} name={field.key} defaultValue={settings[field.key] || ""} />
+              <Input
+                id={String(field.key)}
+                name={String(field.key)}
+                defaultValue={settings[field.key] || ""}
+              />
             )}
           </div>
         ))}
