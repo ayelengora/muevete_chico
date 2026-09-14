@@ -5,30 +5,38 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { BrandLogo } from "@/components/brand/Logo";
 import { adminRequest } from "@/lib/api";
 import { getAdminToken } from "@/lib/auth";
 import type { SiteSettings } from "@/lib/types";
 
-const fields: { key: keyof SiteSettings | string; label: string; area?: boolean }[] = [
-  { key: "brand_name", label: "Nombre de la marca" },
-  { key: "tagline", label: "Tagline" },
-  { key: "hero_title", label: "Título principal" },
-  { key: "hero_subtitle", label: "Subtítulo", area: true },
+const heroFields = [
+  { key: "hero_title", label: "Título (A dónde te vas)", area: false },
+  { key: "hero_subtitle", label: "Bajada debajo del título", area: true },
+  { key: "tagline", label: "Línea chica sobre el título", area: false },
+  { key: "brand_name", label: "Nombre en el menú", area: false },
+] as const;
+
+const contactFields = [
   { key: "about", label: "Sobre muevetechico", area: true },
-  { key: "email", label: "Email" },
-  { key: "instagram_url", label: "Instagram" },
-  { key: "whatsapp", label: "WhatsApp" },
-  { key: "esim_url", label: "Link descuento eSIM" },
-  { key: "esim_label", label: "Texto eSIM" },
-  { key: "rental_code", label: "Código de descuento" },
-  { key: "rental_label", label: "Texto alquiler / promo" },
-  { key: "malaga_guide_title", label: "Título guía Málaga" },
+  { key: "email", label: "Email", area: false },
+  { key: "instagram_url", label: "Instagram", area: false },
+  { key: "whatsapp", label: "WhatsApp", area: false },
+] as const;
+
+const promoFields = [
+  { key: "esim_url", label: "Link descuento eSIM", area: false },
+  { key: "esim_label", label: "Texto eSIM", area: false },
+  { key: "rental_code", label: "Código de descuento", area: false },
+  { key: "rental_label", label: "Texto alquiler / promo", area: false },
+  { key: "malaga_guide_title", label: "Título guía Málaga", area: false },
   { key: "malaga_guide_blurb", label: "Texto guía Málaga", area: true },
-];
+] as const;
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [message, setMessage] = useState("");
+  const [preview, setPreview] = useState<string | null>(null);
 
   useEffect(() => {
     const token = getAdminToken();
@@ -40,13 +48,27 @@ export default function AdminSettingsPage() {
     event.preventDefault();
     const token = getAdminToken();
     if (!token) return;
-    const data = Object.fromEntries(new FormData(event.currentTarget).entries());
-    const updated = await adminRequest<SiteSettings>("/api/v1/admin/settings", token, {
-      method: "PUT",
-      body: JSON.stringify({ settings: data }),
-    });
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const file = data.get("logo");
+    const hasFile = file instanceof File && file.size > 0;
+    setMessage("");
+    const updated = hasFile
+      ? await adminRequest<SiteSettings>("/api/v1/admin/settings", token, {
+          method: "PUT",
+          body: data,
+        })
+      : await adminRequest<SiteSettings>("/api/v1/admin/settings", token, {
+          method: "PUT",
+          body: JSON.stringify({
+            settings: Object.fromEntries(
+              [...data.entries()].filter(([key]) => key !== "logo")
+            ),
+          }),
+        });
     setSettings(updated);
-    setMessage("Guardado. Recargá la web pública para verlo.");
+    setPreview(null);
+    setMessage("Guardado. Recargá el inicio para verlo.");
   }
 
   if (!settings) return <p>Cargando...</p>;
@@ -55,33 +77,73 @@ export default function AdminSettingsPage() {
     <div>
       <h1 className="font-heading text-4xl">La web</h1>
       <p className="mt-2 text-muted-foreground">
-        Textos, mail, Instagram y los botones de la home (eSIM, código, guía).
+        El bloque de arriba del inicio (logo + “A dónde te vas”) se edita acá.
       </p>
-      <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
-        {fields.map((field) => (
-          <div key={String(field.key)} className="space-y-1.5">
-            <Label htmlFor={String(field.key)}>{field.label}</Label>
-            {field.area ? (
-              <Textarea
-                id={String(field.key)}
-                name={String(field.key)}
-                rows={3}
-                defaultValue={settings[field.key] || ""}
-              />
-            ) : (
-              <Input
-                id={String(field.key)}
-                name={String(field.key)}
-                defaultValue={settings[field.key] || ""}
-              />
-            )}
+      <form onSubmit={onSubmit} className="mt-6 space-y-8">
+        <section className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+          <div>
+            <h2 className="font-heading text-2xl">Inicio</h2>
+            <p className="text-sm text-muted-foreground">Logo, título y bajada de la home.</p>
           </div>
-        ))}
+          <div className="flex items-center gap-4">
+            <BrandLogo src={preview || settings.logo_url} className="h-16 w-16 ring-2 ring-[#f4e04d]" />
+            <div className="space-y-1.5">
+              <Label htmlFor="logo">Cambiar logo</Label>
+              <Input
+                id="logo"
+                name="logo"
+                type="file"
+                accept="image/*"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  setPreview(file ? URL.createObjectURL(file) : null);
+                }}
+              />
+            </div>
+          </div>
+          {heroFields.map((field) => (
+            <Field key={field.key} field={field} value={settings[field.key] || ""} />
+          ))}
+        </section>
+
+        <section className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+          <h2 className="font-heading text-2xl">Contacto</h2>
+          {contactFields.map((field) => (
+            <Field key={field.key} field={field} value={settings[field.key] || ""} />
+          ))}
+        </section>
+
+        <section className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+          <h2 className="font-heading text-2xl">Promos y guía</h2>
+          {promoFields.map((field) => (
+            <Field key={field.key} field={field} value={settings[field.key] || ""} />
+          ))}
+        </section>
+
         <Button type="submit" className="rounded-full">
           Guardar cambios
         </Button>
         {message ? <p className="text-sm">{message}</p> : null}
       </form>
+    </div>
+  );
+}
+
+function Field({
+  field,
+  value,
+}: {
+  field: { key: string; label: string; area: boolean };
+  value: string;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <Label htmlFor={field.key}>{field.label}</Label>
+      {field.area ? (
+        <Textarea id={field.key} name={field.key} rows={3} defaultValue={value} />
+      ) : (
+        <Input id={field.key} name={field.key} defaultValue={value} />
+      )}
     </div>
   );
 }

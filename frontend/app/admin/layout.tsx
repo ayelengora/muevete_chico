@@ -12,7 +12,7 @@ const nav = [
   { href: "/admin/combos", label: "Combos" },
   { href: "/admin/reviews", label: "Reviews" },
   { href: "/admin/inquiries", label: "Consultas" },
-  { href: "/admin/settings", label: "La web" },
+  { href: "/admin/settings", label: "Inicio / La web" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

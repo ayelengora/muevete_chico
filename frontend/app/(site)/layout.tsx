@@ -20,6 +20,7 @@ const fallback: SiteSettings = {
   rental_label: "Renntentials 10% off",
   malaga_guide_title: "Guía Málaga",
   malaga_guide_blurb: "",
+  logo_url: "/brand/logo.jpg",
 };
 
 export default async function SiteLayout({

@@ -29,17 +29,19 @@ export default function AdminHomePage() {
   }, []);
 
   const cards = [
-    ["Blogs", counts.posts, "/admin/posts"],
-    ["Combos", counts.combos, "/admin/combos"],
-    ["Reviews pendientes", counts.pending, "/admin/reviews"],
-    ["Consultas", counts.inquiries, "/admin/inquiries"],
+    ["Inicio (logo y título)", "La web", "/admin/settings"],
+    ["Destinos", String(counts.combos), "/admin/combos"],
+    ["Blogs", String(counts.posts), "/admin/posts"],
+    ["Reviews pendientes", String(counts.pending), "/admin/reviews"],
+    ["Consultas", String(counts.inquiries), "/admin/inquiries"],
   ] as const;
 
   return (
     <div>
       <h1 className="font-heading text-4xl">Hola</h1>
       <p className="mt-2 text-muted-foreground">
-        Acá editás la web, subís blogs de viajes y combos, y mirás lo que te deja la gente.
+        El logo y el “A dónde te vas” se editan en <span className="font-medium">La web</span>.
+        Los destinos, en Combos.
       </p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {cards.map(([label, value, href]) => (

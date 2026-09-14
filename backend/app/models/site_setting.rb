@@ -15,17 +15,38 @@ class SiteSetting < ApplicationRecord
     "rental_code" => "MUEVETECHICO",
     "rental_label" => "Renntentials 10% off",
     "malaga_guide_title" => "Guía gratis +4k | Málaga con style",
-    "malaga_guide_blurb" => "La guía que armé para moverte por Málaga como local: barrios, playas, tapeo y planes que no salen en el folleto."
+    "malaga_guide_blurb" => "La guía que armé para moverte por Málaga como local: barrios, playas, tapeo y planes que no salen en el folleto.",
+    "logo_url" => "/brand/logo.jpg"
   }.freeze
+
+  has_one_attached :asset
 
   def self.fetch_all
     stored = all.each_with_object({}) { |row, acc| acc[row.key] = row.value }
-    DEFAULTS.merge(stored)
+    DEFAULTS.merge(stored).merge("logo_url" => resolved_logo_url)
+  end
+
+  def self.resolved_logo_url
+    record = find_by(key: "logo_url")
+    if record&.asset&.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(record.asset, only_path: false)
+    else
+      record&.value.presence || DEFAULTS["logo_url"]
+    end
+  end
+
+  def self.attach_logo!(file)
+    record = find_or_initialize_by(key: "logo_url")
+    record.value = DEFAULTS["logo_url"] if record.value.blank?
+    record.save!
+    record.asset.attach(file)
+    record.update!(value: resolved_logo_url)
   end
 
   def self.upsert_many!(attrs)
     attrs.each do |key, value|
       next if key.blank?
+      next if key.to_s == "logo"
 
       record = find_or_initialize_by(key: key.to_s)
       record.value = value.to_s

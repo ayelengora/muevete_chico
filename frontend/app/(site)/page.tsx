@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand/Logo";
-import { SunMark, TurtleMark, WavesMark } from "@/components/brand/Marks";
 import { DestinationCard, PostCard, Stars } from "@/components/site/Cards";
 import { api } from "@/lib/api";
 
@@ -12,7 +11,7 @@ export default async function HomePage() {
   } catch {
     return (
       <div className="mx-auto max-w-xl px-4 py-20 text-center">
-        <BrandLogo className="mx-auto h-24 w-24" />
+        <BrandLogo className="mx-auto h-20 w-20" />
         <h1 className="mt-6 font-heading text-4xl">Estamos levantando la web</h1>
         <p className="mt-3 text-muted-foreground">
           El API de Rails todavía no responde. Arrancá el backend y recargá.
@@ -32,19 +31,14 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="px-4 pb-4 pt-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-1 flex items-center justify-center gap-10 opacity-80">
-            <TurtleMark className="h-12 w-14" />
-            <SunMark className="h-14 w-14" />
-            <WavesMark className="h-12 w-16" />
-          </div>
-          <BrandLogo className="mx-auto mt-1 h-28 w-28 shadow-md ring-4 ring-[#f4e04d] sm:h-36 sm:w-36" />
-          <p className="mt-6 text-[11px] tracking-[0.32em] text-muted-foreground uppercase">
-            Mucho mundo · {s.tagline}
+      <section className="px-4 pb-2 pt-4">
+        <div className="mx-auto max-w-3xl text-center">
+          <BrandLogo src={s.logo_url} className="mx-auto h-16 w-16 shadow-sm ring-2 ring-[#f4e04d] sm:h-20 sm:w-20" />
+          <p className="mt-2 text-[10px] tracking-[0.28em] text-muted-foreground uppercase">
+            {s.tagline}
           </p>
-          <h1 className="mt-3 font-heading text-4xl sm:text-6xl">{s.hero_title}</h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">{s.hero_subtitle}</p>
+          <h1 className="mt-1 font-heading text-3xl sm:text-4xl">{s.hero_title}</h1>
+          <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground sm:text-base">{s.hero_subtitle}</p>
         </div>
       </section>
 

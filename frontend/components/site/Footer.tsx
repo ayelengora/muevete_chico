@@ -10,7 +10,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
         <div>
           <div className="flex items-center gap-3">
-            <BrandLogo className="h-14 w-14 ring-2 ring-[#f4e04d]" />
+            <BrandLogo src={settings.logo_url} className="h-14 w-14 ring-2 ring-[#f4e04d]" />
             <p className="font-heading text-xl">{settings.brand_name}</p>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">

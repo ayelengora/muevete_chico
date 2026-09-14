@@ -13,6 +13,7 @@ export type SiteSettings = {
   rental_label: string;
   malaga_guide_title: string;
   malaga_guide_blurb: string;
+  logo_url: string;
   [key: string]: string;
 };
 
