@@ -4,8 +4,8 @@ class SiteSetting < ApplicationRecord
   DEFAULTS = {
     "brand_name" => "muevetechico",
     "tagline" => "Rutas y experiencias reales :)",
-    "hero_title" => "¿Te querés ir? charlemos",
-    "hero_subtitle" => "Asesorías 1:1 y viajes a medida, con la misma onda de las historias: destinos reales, tips que sirven y cero relleno.",
+    "hero_title" => "A dónde te vas",
+    "hero_subtitle" => "Destinos reales, itinerarios a medida y cero relleno. Elegí un lugar o armamos el tuyo.",
     "about" => "muevetechico nació en Instagram para contar viajes como se viven: con sol, playa, pueblos y también con el quilombo de armar un itinerario. Hoy es una agencia chica para diseñar tu próximo viaje y acompañarte antes de salir.",
     "email" => "hola@muevetechico.com",
     "instagram_url" => "https://www.instagram.com/muevetechico/",

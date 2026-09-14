@@ -55,7 +55,7 @@ combos = [
     duration: "3 días",
     price_from: 320,
     currency: "EUR",
-    featured: false,
+    featured: true,
     excerpt: "Balcón de Europa, calas y pueblo: la escapada de playa que más recomiendo desde Málaga.",
     cover_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
     includes: "Cómo llegar en bus o auto\nPlayas y calas según la época\nCuevas de Nerja (si te copa)\nMapa de restaurantes",
@@ -71,7 +71,7 @@ combos = [
     duration: "A medida",
     price_from: 90,
     currency: "EUR",
-    featured: true,
+    featured: false,
     excerpt: "Asesoría 1:1 para armar el viaje que tenés en la cabeza. Vos contame el sueño, yo te armo el camino.",
     cover_url: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80",
     includes: "Call de 45–60 min\nItinerario o presupuesto inicial\nLista de reservas prioritarias\nSeguimiento por WhatsApp",
@@ -85,6 +85,54 @@ combos = [
       - Cómo ahorrar sin viajar mal
 
       Después te dejo todo ordenado para que reserves vos o te ayudo a cerrar lo importante.
+    TEXT
+  },
+  {
+    title: "Lisboa con calma",
+    destination: "Lisboa, Portugal",
+    duration: "5 días",
+    price_from: 520,
+    currency: "EUR",
+    featured: true,
+    excerpt: "Miradores, tranvía, pastel de nata y un ritmo para caminar la ciudad sin terminar hecha bolsa.",
+    cover_url: "https://images.unsplash.com/photo-1585208798174-aafaa50924c6?auto=format&fit=crop&w=1600&q=80",
+    includes: "Barrios para dormir (Alfama, Graça o Príncipe Real)\nItinerario de miradores\nDía a Sintra o cascais según el clima\nReservas de restaurantes",
+    description: <<~TEXT
+      Lisboa se disfruta despacio: subidas, luces y un atardecer que pide vino, no checklist.
+
+      Este destino es para armar cinco días con sentido: un barrio para volver a dormir, dos o tres anclas por día y un escape a Sintra si el tiempo ayuda.
+    TEXT
+  },
+  {
+    title: "Puglia, el sur que pega",
+    destination: "Puglia, Italia",
+    duration: "7 días",
+    price_from: 890,
+    currency: "EUR",
+    featured: true,
+    excerpt: "Pueblos blancos, mar adriático y comida de verdad. El sur de Italia sin el circo del norte.",
+    cover_url: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1600&q=80",
+    includes: "Ruta Ostuni–Polignano–Lecce\nDónde dormir (base, no hotel distinto cada noche)\nPlayas y masseria\nTraslados realistas",
+    description: <<~TEXT
+      Puglia es mar, trulli y pueblos para perderse. Este combo ordena una semana para no estar todo el día en el auto.
+
+      Una base, tres pueblos, playa cuando pega el calor y cenas que valen el viaje.
+    TEXT
+  },
+  {
+    title: "Marrakech y el Atlas",
+    destination: "Marrakech, Marruecos",
+    duration: "6 días",
+    price_from: 640,
+    currency: "EUR",
+    featured: true,
+    excerpt: "Medina, riads y un día en las montañas. Marruecos de cerca, sin tour de 40 personas.",
+    cover_url: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=1600&q=80",
+    includes: "Riad en la medina\nMapa de zocos y rooftops\nExcursión al Atlas o Essaouira\nTips de plata, vestimenta y ritmos",
+    description: <<~TEXT
+      Marrakech pide un riad lindo y un plan para no marearte en la medina. Después, montaña o costa.
+
+      Armamos el equilibrio: ciudad, un día afuera y tiempo para no hacer nada en la terraza.
     TEXT
   }
 ]

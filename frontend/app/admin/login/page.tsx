@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { setAdminToken } from "@/lib/auth";
 import { apiBase } from "@/lib/api";
-import { LogoBadge } from "@/components/brand/Marks";
+import { BrandLogo } from "@/components/brand/Logo";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
         className="w-full max-w-sm space-y-4 rounded-3xl bg-card p-8 text-center ring-1 ring-[#ead98a]"
       >
         <div className="flex justify-center">
-          <LogoBadge />
+          <BrandLogo className="h-20 w-20" />
         </div>
         <h1 className="font-heading text-3xl">Estudio</h1>
         <p className="text-sm text-muted-foreground">

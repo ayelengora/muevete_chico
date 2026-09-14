@@ -17,6 +17,47 @@ export function Cover({
   return <img src={src} alt={alt} className={className} />;
 }
 
+export function DestinationCard({
+  combo,
+  featured = false,
+}: {
+  combo: Combo;
+  featured?: boolean;
+}) {
+  return (
+    <Link
+      href={`/combos/${combo.slug}`}
+      className={`group relative block overflow-hidden rounded-[1.6rem] bg-ink text-cream ${
+        featured ? "md:col-span-2 md:min-h-[420px]" : "min-h-[280px]"
+      }`}
+    >
+      <Cover
+        src={combo.cover_url}
+        alt={combo.title}
+        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 space-y-2 p-6">
+        <p className="text-[11px] tracking-[0.22em] text-white/80 uppercase">
+          {combo.destination}
+          {combo.duration ? ` · ${combo.duration}` : ""}
+        </p>
+        <h3 className={`font-heading leading-tight ${featured ? "text-4xl sm:text-5xl" : "text-3xl"}`}>
+          {combo.title}
+        </h3>
+        {combo.excerpt ? (
+          <p className={`max-w-xl text-sm text-white/85 ${featured ? "" : "line-clamp-2"}`}>
+            {combo.excerpt}
+          </p>
+        ) : null}
+        <p className="pt-1 text-sm font-medium">
+          desde {formatPrice(combo.price_from, combo.currency)}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
 export function ComboCard({ combo }: { combo: Combo }) {
   return (
     <Link

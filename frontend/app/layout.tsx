@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "muevetechico — rutas y experiencias reales",
+    default: "muevetechico — mucho mundo",
     template: "%s · muevetechico",
   },
   description:
-    "Agencia de viajes y asesorías 1:1. Combos, blogs y experiencias reales para armar tu próximo viaje.",
+    "Destinos reales y viajes a medida. Málaga, Andalucía, Lisboa y más, con la onda de muevetechico.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

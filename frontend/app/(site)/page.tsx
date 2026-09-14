@@ -1,176 +1,127 @@
 import Link from "next/link";
-import { Mail } from "lucide-react";
-import { InstagramIcon, LogoBadge, SunMark, TurtleMark, WavesMark } from "@/components/brand/Marks";
-import { ComboCard, PostCard, Stars } from "@/components/site/Cards";
-import { InquiryForm } from "@/components/site/InquiryForm";
+import { BrandLogo } from "@/components/brand/Logo";
+import { SunMark, TurtleMark, WavesMark } from "@/components/brand/Marks";
+import { DestinationCard, PostCard, Stars } from "@/components/site/Cards";
 import { api } from "@/lib/api";
 
 export default async function HomePage() {
   let data;
+  let combos;
   try {
-    data = await api.home();
+    [data, combos] = await Promise.all([api.home(), api.combos()]);
   } catch {
     return (
       <div className="mx-auto max-w-xl px-4 py-20 text-center">
-        <h1 className="font-heading text-4xl">Estamos levantando la web</h1>
+        <BrandLogo className="mx-auto h-24 w-24" />
+        <h1 className="mt-6 font-heading text-4xl">Estamos levantando la web</h1>
         <p className="mt-3 text-muted-foreground">
           El API de Rails todavía no responde. Arrancá el backend y recargá.
         </p>
       </div>
     );
   }
-  const s = data.settings;
 
-  const actions = [
-    {
-      href: "/contacto?tipo=asesoria_1a1",
-      label: "Asesorías 1:1 | ¿Te querés ir? charlemos :)",
-    },
-    {
-      href: "/contacto?tipo=disenar_viaje",
-      label: "Diseñemos tu próximo viaje ✈️",
-    },
-    {
-      href: "/guia-malaga",
-      label: s.malaga_guide_title || "Guía gratis +4k | Málaga con style",
-      thumb: true,
-    },
-    {
-      href: s.esim_url || "#",
-      label: s.esim_label || "Descuento eSIM",
-      external: true,
-    },
-    {
-      href: "/contacto?tipo=otro",
-      label: `🚗 ${s.rental_label || "Renntentials 10% off"} cod "${s.rental_code}"`,
-    },
-  ];
+  const s = data.settings;
+  const destinations = combos
+    .filter((combo) => combo.destination !== "A donde quieras ir")
+    .sort((a, b) => Number(b.featured) - Number(a.featured) || a.title.localeCompare(b.title, "es"));
+  const highlight =
+    destinations.find((combo) => combo.slug === "malaga-con-style") || destinations[0];
+  const rest = destinations.filter((combo) => combo.id !== highlight?.id);
+  const stories = data.featured_posts.length ? data.featured_posts : data.latest_posts;
 
   return (
     <div>
-      <section className="border-b border-[#ead98a]/80 bg-[#fbf6e8]">
-        <div className="mx-auto flex max-w-xl flex-col items-center px-4 pb-8 pt-6 text-center">
-          <div className="mb-2 flex w-full items-start justify-between px-2">
-            <TurtleMark className="h-14 w-16" />
-            <SunMark className="h-16 w-16" />
-            <WavesMark className="h-14 w-20" />
+      <section className="px-4 pb-4 pt-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-1 flex items-center justify-center gap-10 opacity-80">
+            <TurtleMark className="h-12 w-14" />
+            <SunMark className="h-14 w-14" />
+            <WavesMark className="h-12 w-16" />
           </div>
-          <div className="-mt-4">
-            <LogoBadge className="h-[4.5rem] w-[4.5rem]" />
-          </div>
-          <h1 className="mt-5 font-heading text-4xl lowercase">{s.brand_name}</h1>
-          <p className="mt-2 text-xs tracking-[0.28em] text-muted-foreground uppercase">
-            {s.tagline}
+          <BrandLogo className="mx-auto mt-1 h-28 w-28 shadow-md ring-4 ring-[#f4e04d] sm:h-36 sm:w-36" />
+          <p className="mt-6 text-[11px] tracking-[0.32em] text-muted-foreground uppercase">
+            Mucho mundo · {s.tagline}
           </p>
-          <div className="mt-6 h-px w-full bg-[#ead98a]" />
-          <div className="mt-6 flex items-center gap-5">
-            <a href={s.instagram_url} target="_blank" rel="noreferrer" aria-label="Instagram">
-              <InstagramIcon className="h-5 w-5" />
-            </a>
-            <a href={`mailto:${s.email}`} aria-label="Email">
-              <Mail className="h-5 w-5" />
-            </a>
-          </div>
-          <div className="mt-6 flex w-full flex-col gap-3">
-            {actions.map((action) =>
-              action.external ? (
-                <a key={action.label} href={action.href} target="_blank" rel="noreferrer" className="paper-btn flex min-h-14 items-center justify-center rounded-md px-4 py-3 text-sm">
-                  {action.label}
-                </a>
-              ) : (
-                <Link
-                  key={action.label}
-                  href={action.href}
-                  className="paper-btn flex min-h-14 items-center justify-center gap-3 rounded-md px-4 py-3 text-sm"
-                >
-                  {action.thumb ? (
-                    <span className="hidden h-10 w-14 shrink-0 items-center justify-center rounded bg-[#f7d56a] sm:grid">
-                      <SunMark className="h-8 w-8" />
-                    </span>
-                  ) : null}
-                  {action.label}
-                </Link>
-              )
-            )}
-          </div>
+          <h1 className="mt-3 font-heading text-4xl sm:text-6xl">{s.hero_title}</h1>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">{s.hero_subtitle}</p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <p className="text-xs tracking-[0.25em] uppercase">Rutas y experiencias reales</p>
-        <h2 className="mt-2 font-heading text-4xl sm:text-5xl">{s.hero_title}</h2>
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{s.hero_subtitle}</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {[
-            [data.stats.combos, "combos al aire"],
-            [data.stats.posts, "notas del blog"],
-            [data.stats.average_rating ? `${data.stats.average_rating}★` : "—", "promedio de reviews"],
-          ].map(([value, label]) => (
-            <div key={String(label)} className="rounded-3xl bg-card p-5 ring-1 ring-[#ead98a]">
-              <p className="font-heading text-3xl">{value}</p>
-              <p className="text-sm text-muted-foreground">{label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="mb-6 flex items-end justify-between">
-          <h2 className="font-heading text-3xl">Combos para irse</h2>
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs tracking-[0.25em] uppercase">Elegí un lugar</p>
+            <h2 className="mt-1 font-heading text-3xl sm:text-4xl">Destinos</h2>
+          </div>
           <Link href="/combos" className="text-sm underline">
             Ver todos
           </Link>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {data.featured_combos.map((combo) => (
-            <ComboCard key={combo.id} combo={combo} />
-          ))}
-        </div>
+        {destinations.length === 0 ? (
+          <p className="text-muted-foreground">Todavía no hay destinos publicados.</p>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {highlight ? <DestinationCard combo={highlight} featured /> : null}
+            {rest.map((combo) => (
+              <DestinationCard key={combo.id} combo={combo} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <Link
+          href="/contacto?tipo=disenar_viaje"
+          className="flex flex-col items-start justify-between gap-4 rounded-[1.6rem] bg-card px-6 py-8 ring-1 ring-[#ead98a] sm:flex-row sm:items-center"
+        >
+          <div>
+            <p className="text-xs tracking-[0.22em] uppercase">A medida</p>
+            <h2 className="mt-1 font-heading text-3xl">¿No está tu destino?</h2>
+            <p className="mt-2 max-w-xl text-muted-foreground">
+              Lo diseñamos juntos: fechas, ritmo y presupuesto. Sin paquete cerrado.
+            </p>
+          </div>
+          <span className="rounded-full bg-ink px-5 py-2.5 text-sm text-cream">Diseñemos tu viaje</span>
+        </Link>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16">
         <div className="mb-6 flex items-end justify-between">
-          <h2 className="font-heading text-3xl">Del blog</h2>
+          <h2 className="font-heading text-3xl">Ideas para irse</h2>
           <Link href="/blog" className="text-sm underline">
-            Leer más
+            Leer el blog
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {(data.featured_posts.length ? data.featured_posts : data.latest_posts).map((post) => (
+          {stories.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="mb-6 flex items-end justify-between">
-          <h2 className="font-heading text-3xl">Lo que dicen</h2>
-          <Link href="/reviews" className="text-sm underline">
-            Dejar review
-          </Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {data.reviews.map((review) => (
-            <blockquote key={review.id} className="rounded-3xl bg-card p-5 ring-1 ring-[#ead98a]">
-              <Stars rating={review.rating} />
-              <p className="mt-3 text-sm">{review.body}</p>
-              <footer className="mt-3 text-sm text-muted-foreground">
-                {review.author_name}
-                {review.author_location ? ` · ${review.author_location}` : ""}
-                {review.trip ? ` · ${review.trip}` : ""}
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-20 lg:grid-cols-2">
-        <div>
-          <h2 className="font-heading text-3xl">¿Charlamos tu viaje?</h2>
-          <p className="mt-3 text-muted-foreground">{s.about}</p>
-        </div>
-        <InquiryForm />
-      </section>
+      {data.reviews.length > 0 ? (
+        <section className="mx-auto max-w-6xl px-4 pb-20">
+          <div className="mb-6 flex items-end justify-between">
+            <h2 className="font-heading text-3xl">Lo que dicen</h2>
+            <Link href="/reviews" className="text-sm underline">
+              Ver reviews
+            </Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {data.reviews.slice(0, 4).map((review) => (
+              <blockquote key={review.id} className="rounded-3xl bg-card p-5 ring-1 ring-[#ead98a]">
+                <Stars rating={review.rating} />
+                <p className="mt-3 text-sm">{review.body}</p>
+                <footer className="mt-3 text-sm text-muted-foreground">
+                  {review.author_name}
+                  {review.author_location ? ` · ${review.author_location}` : ""}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

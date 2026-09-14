@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import type { SiteSettings } from "@/lib/types";
-import { InstagramIcon, LogoBadge } from "@/components/brand/Marks";
+import { BrandLogo } from "@/components/brand/Logo";
+import { InstagramIcon } from "@/components/brand/Marks";
 
 export function Footer({ settings }: { settings: SiteSettings }) {
   return (
@@ -9,7 +10,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
         <div>
           <div className="flex items-center gap-3">
-            <LogoBadge className="h-12 w-12" />
+            <BrandLogo className="h-14 w-14 ring-2 ring-[#f4e04d]" />
             <p className="font-heading text-xl">{settings.brand_name}</p>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
@@ -19,7 +20,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         <div>
           <p className="text-xs tracking-[0.2em] uppercase">Explorá</p>
           <div className="mt-3 flex flex-col gap-2 text-sm">
-            <Link href="/combos">Combos y viajes</Link>
+            <Link href="/combos">Destinos</Link>
             <Link href="/blog">Blogs de viaje</Link>
             <Link href="/reviews">Reviews</Link>
             <Link href="/guia-malaga">Guía de Málaga</Link>

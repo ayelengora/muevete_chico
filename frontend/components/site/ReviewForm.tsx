@@ -34,7 +34,11 @@ export function ReviewForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+    <form
+      onSubmit={onSubmit}
+      autoComplete="off"
+      className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]"
+    >
       <h3 className="font-heading text-2xl">Dejá tu review</h3>
       <p className="text-sm text-muted-foreground">
         La publico cuando la leo, para que no se mezcle spam con viajes reales.
@@ -42,15 +46,33 @@ export function ReviewForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="author_name">Nombre</Label>
-          <Input id="author_name" name="author_name" required />
+          <Input
+            id="author_name"
+            name="author_name"
+            type="text"
+            autoComplete="name"
+            required
+          />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="author_location">Desde dónde escribís</Label>
-          <Input id="author_location" name="author_location" placeholder="Buenos Aires, Madrid..." />
+          <Input
+            id="author_location"
+            name="author_location"
+            type="text"
+            autoComplete="off"
+            placeholder="Buenos Aires, Madrid..."
+          />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="trip">Qué viaje o combo</Label>
-          <Input id="trip" name="trip" placeholder="Málaga, asesoría 1:1..." />
+          <Input
+            id="trip"
+            name="trip"
+            type="text"
+            autoComplete="off"
+            placeholder="Málaga, asesoría 1:1..."
+          />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="rating">Puntaje</Label>

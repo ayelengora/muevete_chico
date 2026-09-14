@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Mail, Menu } from "lucide-react";
 import type { SiteSettings } from "@/lib/types";
-import { InstagramIcon, LogoBadge } from "@/components/brand/Marks";
+import { BrandLogo } from "@/components/brand/Logo";
+import { InstagramIcon } from "@/components/brand/Marks";
 
 const links = [
   { href: "/", label: "Inicio" },
-  { href: "/combos", label: "Combos" },
+  { href: "/combos", label: "Destinos" },
   { href: "/blog", label: "Blog" },
   { href: "/reviews", label: "Reviews" },
   { href: "/contacto", label: "Charlemos" },
@@ -16,7 +17,7 @@ export function Header({ settings }: { settings: SiteSettings }) {
     <header className="sticky top-0 z-40 border-b border-[#ead98a]/80 bg-[#fbf6e8]/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="flex items-center gap-3">
-          <LogoBadge className="h-12 w-12" />
+          <BrandLogo className="h-12 w-12 ring-2 ring-[#f4e04d]" />
           <div className="hidden sm:block">
             <p className="font-heading text-lg leading-none">{settings.brand_name}</p>
             <p className="mt-1 text-[10px] tracking-[0.22em] text-muted-foreground uppercase">

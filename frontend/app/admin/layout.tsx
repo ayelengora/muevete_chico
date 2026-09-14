@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { clearAdminToken, getAdminToken } from "@/lib/auth";
-import { LogoBadge } from "@/components/brand/Marks";
+import { BrandLogo } from "@/components/brand/Logo";
 
 const nav = [
   { href: "/admin", label: "Resumen" },
@@ -32,7 +32,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col gap-6 px-4 py-6 md:flex-row">
       <aside className="md:w-56">
         <div className="flex items-center gap-3">
-          <LogoBadge className="h-12 w-12" />
+          <BrandLogo className="h-12 w-12" />
           <div>
             <p className="font-heading text-lg">Estudio</p>
             <p className="text-xs text-muted-foreground">muevetechico</p>
