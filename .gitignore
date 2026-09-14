@@ -1,0 +1,17 @@
+node_modules
+.next
+backend/vendor
+backend/log
+backend/tmp
+backend/storage
+!backend/storage/.keep
+backend/db/*.sqlite3
+backend/db/*.sqlite3-*
+frontend/.next
+frontend/node_modules
+agent-tools
+assets
+.DS_Store
+*.log
+.env
+.env.local
