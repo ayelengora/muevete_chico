@@ -1,3 +1,5 @@
+import { createElement, type ReactNode } from "react";
+
 export function formatPrice(amount?: number | null, currency = "EUR") {
   if (amount == null) return "A consultar";
   return new Intl.NumberFormat("es-AR", {
@@ -33,4 +35,11 @@ export function renderBody(body?: string) {
     .split(/\n{2,}/)
     .map((block) => block.trim())
     .filter(Boolean);
+}
+
+export function renderInline(text: string): ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+    const bold = part.match(/^\*\*(.+)\*\*$/);
+    return bold ? createElement("strong", { key: index }, bold[1]) : part;
+  });
 }

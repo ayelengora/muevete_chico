@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Cover } from "@/components/site/Cards";
 import { api } from "@/lib/api";
-import { formatDate, renderBody } from "@/lib/format";
+import { formatDate, renderBody, renderInline } from "@/lib/format";
 
 export default async function PostPage({
   params,
@@ -37,7 +37,7 @@ export default async function PostPage({
               {block.replace(/^## /, "")}
             </h2>
           ) : (
-            <p key={block}>{block}</p>
+            <p key={block}>{renderInline(block)}</p>
           )
         )}
       </div>

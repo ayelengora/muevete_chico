@@ -19,7 +19,7 @@ export function Header({ settings }: { settings: SiteSettings }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/6 bg-[#f7f3e8]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-black/6 bg-[#f7f3e8]">
       <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between gap-4 px-4">
         <Link href="/" aria-label="muevetechico, ir al inicio" className="shrink-0" onClick={() => setOpen(false)}>
           <BrandLogo src={settings.logo_url} className="h-11 w-11 shadow-[0_1px_8px_rgba(28,22,18,0.08)]" />

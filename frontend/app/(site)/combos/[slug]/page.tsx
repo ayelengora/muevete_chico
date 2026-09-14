@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Cover } from "@/components/site/Cards";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { api } from "@/lib/api";
-import { formatPrice, renderBody } from "@/lib/format";
+import { formatPrice, renderBody, renderInline } from "@/lib/format";
 
 export default async function ComboDetailPage({
   params,
@@ -45,7 +45,7 @@ export default async function ComboDetailPage({
                 {block.replace(/^## /, "")}
               </h2>
             ) : (
-              <p key={block}>{block}</p>
+              <p key={block}>{renderInline(block)}</p>
             )
           )}
         </div>
