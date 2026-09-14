@@ -14,7 +14,7 @@ const heroFields = [
   { key: "hero_title", label: "Título (A dónde te vas)", area: false },
   { key: "hero_subtitle", label: "Bajada debajo del título", area: true },
   { key: "tagline", label: "Línea chica sobre el título", area: false },
-  { key: "brand_name", label: "Nombre en el menú", area: false },
+  { key: "brand_name", label: "Nombre en el pie", area: false },
 ] as const;
 
 const contactFields = [
@@ -77,16 +77,18 @@ export default function AdminSettingsPage() {
     <div>
       <h1 className="font-heading text-4xl">La web</h1>
       <p className="mt-2 text-muted-foreground">
-        El bloque de arriba del inicio (logo + “A dónde te vas”) se edita acá.
+        El sello va una sola vez, en el menú de arriba. El título y la bajada son del inicio.
       </p>
       <form onSubmit={onSubmit} className="mt-6 space-y-8">
-        <section className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+        <section className="surface space-y-4 p-6">
           <div>
             <h2 className="font-heading text-2xl">Inicio</h2>
-            <p className="text-sm text-muted-foreground">Logo, título y bajada de la home.</p>
+            <p className="text-sm text-muted-foreground">
+              Logo del menú, título y bajada de la home.
+            </p>
           </div>
           <div className="flex items-center gap-4">
-            <BrandLogo src={preview || settings.logo_url} className="h-16 w-16 ring-2 ring-[#f4e04d]" />
+            <BrandLogo src={preview || settings.logo_url} className="h-16 w-16" />
             <div className="space-y-1.5">
               <Label htmlFor="logo">Cambiar logo</Label>
               <Input
@@ -106,14 +108,14 @@ export default function AdminSettingsPage() {
           ))}
         </section>
 
-        <section className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+        <section className="surface space-y-4 p-6">
           <h2 className="font-heading text-2xl">Contacto</h2>
           {contactFields.map((field) => (
             <Field key={field.key} field={field} value={settings[field.key] || ""} />
           ))}
         </section>
 
-        <section className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+        <section className="surface space-y-4 p-6">
           <h2 className="font-heading text-2xl">Promos y guía</h2>
           {promoFields.map((field) => (
             <Field key={field.key} field={field} value={settings[field.key] || ""} />

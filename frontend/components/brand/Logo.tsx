@@ -13,3 +13,17 @@ export function BrandLogo({
     />
   );
 }
+
+export function BrandWordmark({
+  name = "muevetechico",
+  className = "",
+}: {
+  name?: string;
+  className?: string;
+}) {
+  return (
+    <span className={`font-heading text-[1.35rem] leading-none tracking-tight ${className}`}>
+      {name}
+    </span>
+  );
+}

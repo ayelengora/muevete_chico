@@ -45,7 +45,7 @@ export default function AdminReviewsPage() {
           <p className="text-muted-foreground">Nadie dejó reviews todavía.</p>
         ) : (
           reviews.map((review) => (
-            <div key={review.id} className="rounded-2xl bg-card p-4 ring-1 ring-[#ead98a]">
+            <div key={review.id} className="surface p-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <Stars rating={review.rating} />

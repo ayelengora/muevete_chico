@@ -74,7 +74,7 @@ export function ContentEditor({ kind, initial }: { kind: Kind; initial?: Values 
     : initial?.includes || "";
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+    <form onSubmit={onSubmit} className="surface space-y-4 p-6">
       <Field name="title" label="Título" defaultValue={initial?.title} required />
       <Field name="destination" label="Destino" defaultValue={initial?.destination} />
       {isCombo ? (

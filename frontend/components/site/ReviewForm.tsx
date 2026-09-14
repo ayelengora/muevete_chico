@@ -34,25 +34,15 @@ export function ReviewForm() {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      autoComplete="off"
-      className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]"
-    >
+    <form onSubmit={onSubmit} autoComplete="off" className="surface space-y-4 p-6 sm:p-7">
       <h3 className="font-heading text-2xl">Dejá tu review</h3>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm leading-relaxed text-muted-foreground">
         La publico cuando la leo, para que no se mezcle spam con viajes reales.
       </p>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="author_name">Nombre</Label>
-          <Input
-            id="author_name"
-            name="author_name"
-            type="text"
-            autoComplete="name"
-            required
-          />
+          <Input id="author_name" name="author_name" type="text" autoComplete="name" required />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="author_location">Desde dónde escribís</Label>
@@ -80,7 +70,7 @@ export function ReviewForm() {
             id="rating"
             name="rating"
             defaultValue="5"
-            className="h-9 w-full rounded-lg border border-input bg-cream px-2.5 text-sm"
+            className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm"
           >
             {[5, 4, 3, 2, 1].map((n) => (
               <option key={n} value={n}>
@@ -94,7 +84,7 @@ export function ReviewForm() {
           <Textarea id="body" name="body" rows={4} required minLength={10} />
         </div>
       </div>
-      <Button type="submit" disabled={status === "loading"} className="rounded-full px-5">
+      <Button type="submit" disabled={status === "loading"} className="h-10 rounded-full px-5">
         {status === "loading" ? "Enviando..." : "Publicar review"}
       </Button>
       {message ? (

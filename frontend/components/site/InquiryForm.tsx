@@ -49,7 +49,7 @@ export function InquiryForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+    <form onSubmit={onSubmit} className="surface space-y-4 p-6 sm:p-7">
       <h3 className="font-heading text-2xl">{title}</h3>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Tu nombre" name="name" required />
@@ -61,7 +61,7 @@ export function InquiryForm({
             id="inquiry_type"
             name="inquiry_type"
             defaultValue={defaultType}
-            className="h-9 w-full rounded-lg border border-input bg-cream px-2.5 text-sm"
+            className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm"
           >
             <option value="asesoria_1a1">Asesoría 1:1 — ¿Te querés ir?</option>
             <option value="disenar_viaje">Diseñemos tu próximo viaje</option>
@@ -82,7 +82,7 @@ export function InquiryForm({
           />
         </div>
       </div>
-      <Button type="submit" disabled={status === "loading"} className="rounded-full px-5">
+      <Button type="submit" disabled={status === "loading"} className="h-10 rounded-full px-5">
         {status === "loading" ? "Enviando..." : submitLabel}
       </Button>
       {message ? (

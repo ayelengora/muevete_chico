@@ -41,17 +41,12 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-sm space-y-4 rounded-3xl bg-card p-8 text-center ring-1 ring-[#ead98a]"
-      >
+      <form onSubmit={onSubmit} className="surface w-full max-w-sm space-y-4 p-8 text-center">
         <div className="flex justify-center">
           <BrandLogo className="h-20 w-20" />
         </div>
         <h1 className="font-heading text-3xl">Estudio</h1>
-        <p className="text-sm text-muted-foreground">
-          Para editar la web, blogs y combos.
-        </p>
+        <p className="text-sm text-muted-foreground">Para editar la web, blogs y combos.</p>
         <div className="space-y-1.5 text-left">
           <Label htmlFor="email">Email</Label>
           <Input id="email" name="email" type="email" defaultValue="hola@muevetechico.com" required />

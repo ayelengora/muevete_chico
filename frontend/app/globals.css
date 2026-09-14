@@ -40,9 +40,9 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-sand: #f6e7a4;
-  --color-cream: #fbf6e8;
-  --color-butter: #fbf3b8;
-  --color-gold: #c4a035;
+  --color-cream: #f7f3e8;
+  --color-butter: #f4e04d;
+  --color-gold: #b8922e;
   --color-terracotta: #8b4a32;
   --color-ink: #1c1612;
   --color-sea: #2c3a4a;
@@ -56,38 +56,38 @@
 }
 
 :root {
-  --background: #f4e6a1;
+  --background: #f7f3e8;
   --foreground: #1c1612;
-  --card: #fff8d9;
+  --card: #fffdf8;
   --card-foreground: #1c1612;
-  --popover: #fffdf4;
+  --popover: #fffdf8;
   --popover-foreground: #1c1612;
   --primary: #1c1612;
-  --primary-foreground: #fff8d9;
-  --secondary: #fbf3b8;
+  --primary-foreground: #fffdf8;
+  --secondary: #efe8d3;
   --secondary-foreground: #1c1612;
-  --muted: #f3e7b0;
-  --muted-foreground: #5c5346;
-  --accent: #f7d56a;
+  --muted: #efe8d3;
+  --muted-foreground: #6a6154;
+  --accent: #f4e04d;
   --accent-foreground: #1c1612;
   --destructive: #9f2d2d;
-  --border: #e4d48a;
-  --input: #e4d48a;
-  --ring: #c4a035;
+  --border: #e4dcc6;
+  --input: #e4dcc6;
+  --ring: #1c1612;
   --chart-1: #c4a035;
   --chart-2: #8b4a32;
   --chart-3: #2c3a4a;
   --chart-4: #e8b4c8;
-  --chart-5: #f7d56a;
+  --chart-5: #f4e04d;
   --radius: 0.9rem;
-  --sidebar: #fff8d9;
+  --sidebar: #fffdf8;
   --sidebar-foreground: #1c1612;
   --sidebar-primary: #1c1612;
-  --sidebar-primary-foreground: #fff8d9;
-  --sidebar-accent: #fbf3b8;
+  --sidebar-primary-foreground: #fffdf8;
+  --sidebar-accent: #efe8d3;
   --sidebar-accent-foreground: #1c1612;
-  --sidebar-border: #e4d48a;
-  --sidebar-ring: #c4a035;
+  --sidebar-border: #e4dcc6;
+  --sidebar-ring: #1c1612;
 }
 
 @layer base {
@@ -98,10 +98,7 @@
     @apply font-sans;
   }
   body {
-    @apply text-foreground antialiased;
-    background:
-      radial-gradient(1200px 500px at 50% -10%, #fff7d2 0%, transparent 55%),
-      linear-gradient(180deg, #fbf6e8 0%, #f3e08a 42%, #f0c98a 72%, #e8b7c4 100%);
+    @apply bg-background text-foreground antialiased;
     min-height: 100vh;
   }
   h1,
@@ -112,14 +109,17 @@
   }
 }
 
-.paper-btn {
-  background: #fbf3b8;
-  border: 1px solid #ead98a;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+.kicker {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
 }
 
-.paper-btn:hover {
-  background: #fff6c4;
+.surface {
+  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--foreground) 8%, transparent);
+  border-radius: 1.35rem;
 }
 
 summary {

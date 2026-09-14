@@ -39,7 +39,7 @@ export default function AdminCombosPage() {
           <p className="text-muted-foreground">Todavía no hay combos. Subí el primero.</p>
         ) : (
           combos.map((combo) => (
-            <div key={combo.id} className="flex items-center justify-between rounded-2xl bg-card px-4 py-3 ring-1 ring-[#ead98a]">
+            <div key={combo.id} className="surface flex items-center justify-between px-4 py-3">
               <div>
                 <p className="font-medium">{combo.title}</p>
                 <p className="text-xs text-muted-foreground">

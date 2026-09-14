@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { clearAdminToken, getAdminToken } from "@/lib/auth";
-import { BrandLogo } from "@/components/brand/Logo";
 
 const nav = [
   { href: "/admin", label: "Resumen" },
@@ -31,20 +30,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col gap-6 px-4 py-6 md:flex-row">
       <aside className="md:w-56">
-        <div className="flex items-center gap-3">
-          <BrandLogo className="h-12 w-12" />
-          <div>
-            <p className="font-heading text-lg">Estudio</p>
-            <p className="text-xs text-muted-foreground">muevetechico</p>
-          </div>
-        </div>
+        <p className="font-heading text-2xl">Estudio</p>
         <nav className="mt-6 flex flex-wrap gap-2 md:flex-col">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={`rounded-full px-3 py-2 text-sm ${
-                pathname === item.href ? "bg-ink text-cream" : "bg-card hover:bg-butter"
+                pathname === item.href ? "bg-ink text-cream" : "bg-card hover:bg-black/5"
               }`}
             >
               {item.label}

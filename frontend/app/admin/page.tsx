@@ -40,12 +40,12 @@ export default function AdminHomePage() {
     <div>
       <h1 className="font-heading text-4xl">Hola</h1>
       <p className="mt-2 text-muted-foreground">
-        El logo y el “A dónde te vas” se editan en <span className="font-medium">La web</span>.
+        El logo del menú y el título del inicio se editan en <span className="font-medium">La web</span>.
         Los destinos, en Combos.
       </p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {cards.map(([label, value, href]) => (
-          <Link key={href} href={href} className="rounded-3xl bg-card p-6 ring-1 ring-[#ead98a]">
+          <Link key={href} href={href} className="surface p-6 transition hover:bg-white">
             <p className="font-heading text-3xl">{value}</p>
             <p className="text-sm text-muted-foreground">{label}</p>
           </Link>

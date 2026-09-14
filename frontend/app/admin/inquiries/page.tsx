@@ -38,7 +38,7 @@ export default function AdminInquiriesPage() {
           <p className="text-muted-foreground">Todavía no hay consultas.</p>
         ) : (
           items.map((item) => (
-            <article key={item.id} className="rounded-2xl bg-card p-4 ring-1 ring-[#ead98a]">
+            <article key={item.id} className="surface p-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="font-medium">
