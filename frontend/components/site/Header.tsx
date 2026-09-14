@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Instagram, Mail, Menu } from "lucide-react";
+import { Mail, Menu } from "lucide-react";
 import type { SiteSettings } from "@/lib/types";
-import { LogoBadge } from "@/components/brand/Marks";
+import { InstagramIcon, LogoBadge } from "@/components/brand/Marks";
 
 const links = [
   { href: "/", label: "Inicio" },
@@ -43,7 +43,7 @@ export function Header({ settings }: { settings: SiteSettings }) {
             className="rounded-full p-2 hover:bg-butter"
             aria-label="Instagram"
           >
-            <Instagram className="h-4 w-4" />
+            <InstagramIcon className="h-4 w-4" />
           </a>
           <a
             href={`mailto:${settings.email}`}

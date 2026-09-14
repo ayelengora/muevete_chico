@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Instagram, Mail } from "lucide-react";
-import { LogoBadge, SunMark, TurtleMark, WavesMark } from "@/components/brand/Marks";
+import { Mail } from "lucide-react";
+import { InstagramIcon, LogoBadge, SunMark, TurtleMark, WavesMark } from "@/components/brand/Marks";
 import { ComboCard, PostCard, Stars } from "@/components/site/Cards";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { api } from "@/lib/api";
@@ -65,7 +65,7 @@ export default async function HomePage() {
           <div className="mt-6 h-px w-full bg-[#ead98a]" />
           <div className="mt-6 flex items-center gap-5">
             <a href={s.instagram_url} target="_blank" rel="noreferrer" aria-label="Instagram">
-              <Instagram className="h-5 w-5" />
+              <InstagramIcon className="h-5 w-5" />
             </a>
             <a href={`mailto:${s.email}`} aria-label="Email">
               <Mail className="h-5 w-5" />

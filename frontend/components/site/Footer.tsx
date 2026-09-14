@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Instagram, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import type { SiteSettings } from "@/lib/types";
-import { LogoBadge } from "@/components/brand/Marks";
+import { InstagramIcon, LogoBadge } from "@/components/brand/Marks";
 
 export function Footer({ settings }: { settings: SiteSettings }) {
   return (
@@ -37,7 +37,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               rel="noreferrer"
               className="inline-flex items-center gap-2"
             >
-              <Instagram className="h-4 w-4" /> @muevetechico
+              <InstagramIcon className="h-4 w-4" /> @muevetechico
             </a>
             <Link href="/admin/login" className="text-muted-foreground">
               Entrar al estudio
