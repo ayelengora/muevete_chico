@@ -100,7 +100,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   body::after {
     content: "";
@@ -282,11 +282,15 @@
   display: none;
 }
 
-.quote-mark {
-  font-family: var(--font-fraunces), ui-serif, Georgia, serif;
-  font-size: 6rem;
-  line-height: 0.6;
-  color: #f4e04d;
+.hero-stage {
+  display: block;
+}
+@media (min-width: 64rem) {
+  .hero-stage {
+    display: grid;
+    min-height: calc(100dvh - 4.4rem);
+    grid-template-columns: minmax(280px, 0.86fr) 1.14fr;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

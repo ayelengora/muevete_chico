@@ -22,12 +22,12 @@ export default async function CombosPage() {
       ) : (
         <div className="mx-auto mt-10 grid max-w-[1400px] gap-3 px-4 sm:px-6 md:grid-cols-12">
           {destinations.map((combo, index) => (
-            <Reveal key={combo.id} delay={index * 70} className={`${mosaicClass(index)} h-full`}>
+            <Reveal key={combo.id} delay={index * 70} className={mosaicClass(index)}>
               <DestinationCard
                 combo={combo}
                 index={index + 1}
                 kenburns={index === 0}
-                className="h-full"
+                className="h-full min-h-[280px]"
               />
             </Reveal>
           ))}

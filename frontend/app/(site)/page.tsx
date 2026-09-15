@@ -36,7 +36,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="lg:grid lg:min-h-[calc(100svh-4.4rem)] lg:grid-cols-[minmax(280px,0.86fr)_1.14fr]">
+      <section className="hero-stage">
         <div className="flex flex-col justify-end px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
           <p className="hero-copy kicker">{s.tagline}</p>
           <h1 className="hero-copy display mt-5 max-w-[11ch] text-[clamp(3rem,8vw,6.4rem)]">
@@ -59,7 +59,7 @@ export default async function HomePage() {
         {highlight ? (
           <Link
             href={`/combos/${highlight.slug}`}
-            className="group relative min-h-[72vh] overflow-hidden bg-ink text-cream lg:min-h-full"
+            className="group relative min-h-[72vh] overflow-hidden bg-ink text-cream lg:h-full lg:min-h-0"
           >
             {highlight.cover_url ? (
               <img
@@ -103,8 +103,8 @@ export default async function HomePage() {
         ) : (
           <div className="grid gap-3 md:grid-cols-12">
             {rest.map((combo, index) => (
-              <Reveal key={combo.id} delay={index * 80} className={`${mosaicClass(index)} h-full`}>
-                <DestinationCard combo={combo} index={index + 2} className="h-full" />
+              <Reveal key={combo.id} delay={index * 80} className={mosaicClass(index)}>
+                <DestinationCard combo={combo} index={index + 2} className="h-full min-h-[280px]" />
               </Reveal>
             ))}
           </div>
