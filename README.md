@@ -7,7 +7,9 @@ El frontend es **Next.js**. El API es **Ruby on Rails**.
 ## Qué incluye
 
 - Home de destinos, con el sello una sola vez en el menú
-- Combos de viaje y blogs, editables desde `/admin`
+- **Destinos**: lugares disponibles (Málaga, Lisboa, Puglia…)
+- **Combos**: viajes de días cerrados, a veces combinan destinos, con un cronograma posible
+- Blogs, editables desde `/admin`
 - Reviews que deja la gente (quedan pendientes hasta que las apruebes)
 - Formularios de asesoría 1:1, diseño de viaje y guía de Málaga
 - Textos, Instagram, mail y promos editables en **Estudio → La web**

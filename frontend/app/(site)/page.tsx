@@ -1,15 +1,13 @@
 import Link from "next/link";
-import { DestinationCard, mosaicClass, PostCard, Stars } from "@/components/site/Cards";
-import { DestinationMarquee } from "@/components/site/Marquee";
+import { ComboCard, DestinationCard, mosaicClass, PostCard, Stars } from "@/components/site/Cards";
+import { DestinationMarquee, PhotoMarquee } from "@/components/site/Marquee";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
-import { formatPrice } from "@/lib/format";
 
 export default async function HomePage() {
   let data;
-  let combos;
   try {
-    [data, combos] = await Promise.all([api.home(), api.combos()]);
+    data = await api.home();
   } catch {
     return (
       <div className="mx-auto max-w-xl px-4 py-20">
@@ -22,12 +20,10 @@ export default async function HomePage() {
   }
 
   const s = data.settings;
-  const destinations = combos
-    .filter((combo) => combo.destination !== "A donde quieras ir")
-    .sort((a, b) => Number(b.featured) - Number(a.featured) || a.title.localeCompare(b.title, "es"));
-  const highlight =
-    destinations.find((combo) => combo.slug === "malaga-con-style") || destinations[0];
-  const rest = destinations.filter((combo) => combo.id !== highlight?.id);
+  const places = data.destinations?.length ? data.destinations : data.featured_destinations || [];
+  const highlight = places.find((place) => place.slug === "malaga") || places[0];
+  const rest = places.filter((place) => place.id !== highlight?.id);
+  const combos = data.featured_combos || [];
   const stories = data.featured_posts.length ? data.featured_posts : data.latest_posts;
   const leadStory = stories[0];
   const moreStories = stories.slice(1, 4);
@@ -51,14 +47,17 @@ export default async function HomePage() {
             <Link href="/contacto" className="cta-pill">
               Charlemos <span className="arrow">→</span>
             </Link>
+            <Link href="/destinos" className="arrow-link">
+              Destinos <span className="arrow">→</span>
+            </Link>
             <Link href="/combos" className="arrow-link">
-              Ver destinos <span className="arrow">→</span>
+              Combos <span className="arrow">→</span>
             </Link>
           </div>
         </div>
         {highlight ? (
           <Link
-            href={`/combos/${highlight.slug}`}
+            href={`/destinos/${highlight.slug}`}
             className="group relative min-h-[72vh] overflow-hidden bg-ink text-cream lg:h-full lg:min-h-0"
           >
             {highlight.cover_url ? (
@@ -73,13 +72,13 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
               <p className="text-[11px] tracking-[0.22em] text-white/70 uppercase">
-                Destacado · {highlight.destination}
+                Destino · {highlight.country}
               </p>
-              <h2 className="mt-3 font-heading text-4xl leading-[0.95] sm:text-6xl">{highlight.title}</h2>
+              <h2 className="mt-3 font-heading text-4xl leading-[0.95] sm:text-6xl">{highlight.name}</h2>
               <p className="mt-4 text-sm text-white/85">
-                desde {formatPrice(highlight.price_from, highlight.currency)}
+                {highlight.blurb}
                 <span className="arrow-link ml-4 text-butter">
-                  Ver viaje <span className="arrow">→</span>
+                  Ver lugar <span className="arrow">→</span>
                 </span>
               </p>
             </div>
@@ -87,28 +86,58 @@ export default async function HomePage() {
         ) : null}
       </section>
 
-      <DestinationMarquee names={destinations.map((combo) => combo.destination || combo.title)} />
+      <DestinationMarquee names={places.map((place) => place.name)} />
+      <PhotoMarquee places={places} />
+      <DestinationMarquee names={places.map((place) => place.country || place.name)} reverse />
+      <PhotoMarquee places={[...places].reverse()} reverse />
 
       <section className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20">
         <Reveal>
           <div className="mb-8 flex items-end justify-between gap-4">
-            <h2 className="display text-[clamp(2rem,5vw,3.6rem)]">Elegí un lugar</h2>
-            <Link href="/combos" className="arrow-link shrink-0">
+            <div>
+              <p className="kicker">Lugares</p>
+              <h2 className="display mt-2 text-[clamp(2rem,5vw,3.6rem)]">Destinos</h2>
+            </div>
+            <Link href="/destinos" className="arrow-link shrink-0">
               Todos <span className="arrow">→</span>
             </Link>
           </div>
         </Reveal>
         {rest.length === 0 ? (
-          <p className="text-muted-foreground">Todavía no hay más destinos publicados.</p>
+          <p className="text-muted-foreground">Todavía no hay destinos publicados.</p>
         ) : (
           <div className="grid gap-3 md:grid-cols-12">
-            {rest.map((combo, index) => (
-              <Reveal key={combo.id} delay={index * 80} className={mosaicClass(index)}>
-                <DestinationCard combo={combo} index={index + 2} className="h-full min-h-[280px]" />
+            {rest.map((place, index) => (
+              <Reveal key={place.id} delay={index * 80} className={mosaicClass(index)}>
+                <DestinationCard place={place} index={index + 2} className="h-full min-h-[280px]" />
               </Reveal>
             ))}
           </div>
         )}
+      </section>
+
+      <section className="mx-auto max-w-[1400px] px-4 pb-16 sm:px-6">
+        <Reveal>
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <p className="kicker">Días cerrados</p>
+              <h2 className="display mt-2 text-[clamp(2rem,5vw,3.6rem)]">Combos</h2>
+              <p className="mt-2 max-w-xl text-muted-foreground">
+                Viajes armados, con duración y un cronograma posible. A veces combinan más de un destino.
+              </p>
+            </div>
+            <Link href="/combos" className="arrow-link shrink-0">
+              Todos <span className="arrow">→</span>
+            </Link>
+          </div>
+        </Reveal>
+        <div className="grid gap-4">
+          {combos.slice(0, 3).map((combo, index) => (
+            <Reveal key={combo.id} delay={index * 70}>
+              <ComboCard combo={combo} />
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       <section className="px-4 pb-4 sm:px-6">

@@ -9,7 +9,8 @@ import { BrandLogo } from "@/components/brand/Logo";
 import { InstagramIcon } from "@/components/brand/Marks";
 
 const links = [
-  { href: "/combos", label: "Destinos" },
+  { href: "/destinos", label: "Destinos" },
+  { href: "/combos", label: "Combos" },
   { href: "/blog", label: "Blog" },
   { href: "/reviews", label: "Reviews" },
 ];

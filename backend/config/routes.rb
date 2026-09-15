@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get "home", to: "home#show"
       get "settings", to: "settings#show"
       resources :posts, only: %i[index show]
+      resources :destinations, only: %i[index show]
       resources :combos, only: %i[index show]
       resources :reviews, only: %i[index create]
       resources :inquiries, only: %i[create]
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :posts
+        resources :destinations
         resources :combos
         resources :reviews, only: %i[index update destroy]
         resources :inquiries, only: %i[index update destroy]

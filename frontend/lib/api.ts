@@ -1,4 +1,4 @@
-import type { Combo, HomePayload, InquiryPayload, Post, Review, SiteSettings } from "./types";
+import type { Combo, Destination, HomePayload, InquiryPayload, Post, Review, SiteSettings } from "./types";
 
 export function apiBase() {
   if (typeof window === "undefined") {
@@ -42,6 +42,8 @@ export const api = {
   post: (slug: string) => request<Post>(`/api/v1/posts/${slug}`),
   combos: () => request<Combo[]>("/api/v1/combos"),
   combo: (slug: string) => request<Combo>(`/api/v1/combos/${slug}`),
+  destinations: () => request<Destination[]>("/api/v1/destinations"),
+  destination: (slug: string) => request<Destination>(`/api/v1/destinations/${slug}`),
   reviews: () => request<Review[]>("/api/v1/reviews"),
   createReview: (payload: Partial<Review>) =>
     request<{ review: Review; message: string }>("/api/v1/reviews", {

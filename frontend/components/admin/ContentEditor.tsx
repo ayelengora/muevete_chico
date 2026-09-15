@@ -9,19 +9,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { adminRequest } from "@/lib/api";
 import { getAdminToken } from "@/lib/auth";
 
-type Kind = "posts" | "combos";
+type Kind = "posts" | "combos" | "destinations";
 
 type Values = {
   id?: number;
   title?: string;
+  name?: string;
   excerpt?: string;
+  blurb?: string;
   body?: string;
   description?: string;
   destination?: string;
+  region?: string;
+  country?: string;
   duration?: string;
   price_from?: number | null;
   currency?: string;
   includes?: string[] | string;
+  itinerary?: string[] | string;
+  places?: string[] | string;
   cover_url?: string | null;
   published?: boolean;
   featured?: boolean;
@@ -32,6 +38,7 @@ export function ContentEditor({ kind, initial }: { kind: Kind; initial?: Values 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const isCombo = kind === "combos";
+  const isPlace = kind === "destinations";
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -72,15 +79,37 @@ export function ContentEditor({ kind, initial }: { kind: Kind; initial?: Values 
   const includesText = Array.isArray(initial?.includes)
     ? initial?.includes.join("\n")
     : initial?.includes || "";
+  const itineraryText = Array.isArray(initial?.itinerary)
+    ? initial?.itinerary.join("\n")
+    : initial?.itinerary || "";
+  const placesText = Array.isArray(initial?.places)
+    ? initial?.places.join("\n")
+    : initial?.places || "";
 
   return (
     <form onSubmit={onSubmit} className="surface space-y-4 p-6">
-      <Field name="title" label="Título" defaultValue={initial?.title} required />
-      <Field name="destination" label="Destino" defaultValue={initial?.destination} />
-      {isCombo ? (
+      {isPlace ? (
+        <Field name="name" label="Nombre del destino" defaultValue={initial?.name} required />
+      ) : (
+        <Field name="title" label="Título" defaultValue={initial?.title} required />
+      )}
+      {isPlace ? (
         <>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field name="region" label="Región / zona" defaultValue={initial?.region} />
+            <Field name="country" label="País" defaultValue={initial?.country} />
+          </div>
+          <Field name="blurb" label="Bajada corta" defaultValue={initial?.blurb} />
+          <div className="space-y-1.5">
+            <Label htmlFor="description">Sobre el lugar</Label>
+            <Textarea id="description" name="description" rows={8} defaultValue={initial?.description} required />
+          </div>
+        </>
+      ) : isCombo ? (
+        <>
+          <Field name="destination" label="Destino o combinación" defaultValue={initial?.destination} />
           <div className="grid gap-4 sm:grid-cols-3">
-            <Field name="duration" label="Duración" defaultValue={initial?.duration} />
+            <Field name="duration" label="Duración (días cerrados)" defaultValue={initial?.duration} />
             <Field
               name="price_from"
               label="Precio desde"
@@ -95,12 +124,21 @@ export function ContentEditor({ kind, initial }: { kind: Kind; initial?: Values 
             <Textarea id="description" name="description" rows={8} defaultValue={initial?.description} required />
           </div>
           <div className="space-y-1.5">
+            <Label htmlFor="itinerary">Cronograma (una línea por día)</Label>
+            <Textarea id="itinerary" name="itinerary" rows={6} defaultValue={itineraryText} />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="places">Destinos que combina (slugs, uno por línea: malaga, nerja…)</Label>
+            <Textarea id="places" name="places" rows={3} defaultValue={placesText} />
+          </div>
+          <div className="space-y-1.5">
             <Label htmlFor="includes">Incluye (una línea por ítem)</Label>
             <Textarea id="includes" name="includes" rows={5} defaultValue={includesText} />
           </div>
         </>
       ) : (
         <>
+          <Field name="destination" label="Destino" defaultValue={initial?.destination} />
           <Field name="excerpt" label="Bajada" defaultValue={initial?.excerpt} />
           <div className="space-y-1.5">
             <Label htmlFor="body">Nota</Label>

@@ -31,7 +31,7 @@ export default async function ComboDetailPage({
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
         <div className="relative mx-auto flex min-h-[58vh] max-w-4xl flex-col justify-end px-4 pb-12 pt-20 sm:min-h-[72vh] sm:pb-16">
           <Link href="/combos" className="w-fit text-sm text-white/75 hover:text-white">
-            ← Destinos
+            ← Combos
           </Link>
           <p className="mt-8 text-[11px] tracking-[0.22em] text-white/70 uppercase">
             {combo.destination} · {combo.duration}
@@ -44,6 +44,34 @@ export default async function ComboDetailPage({
           <p className="text-lg leading-relaxed text-muted-foreground sm:text-xl">{combo.excerpt}</p>
           <p className="mt-5 text-sm font-medium">desde {formatPrice(combo.price_from, combo.currency)}</p>
         </Reveal>
+        {combo.destinations && combo.destinations.length > 0 ? (
+          <section className="mt-10">
+            <h2 className="font-heading text-2xl">Destinos que combina</h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {combo.destinations.map((place) => (
+                <Link
+                  key={place.slug}
+                  href={`/destinos/${place.slug}`}
+                  className="rounded-full bg-card px-4 py-2 text-sm ring-1 ring-black/8 transition hover:bg-white"
+                >
+                  {place.name}
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : null}
+        {combo.itinerary && combo.itinerary.length > 0 ? (
+          <section className="mt-12">
+            <h2 className="font-heading text-2xl">Cronograma posible</h2>
+            <ol className="mt-5 space-y-3">
+              {combo.itinerary.map((day, index) => (
+                <li key={`${index}-${day}`} className="surface px-4 py-3 text-sm leading-relaxed">
+                  {day}
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null}
         <div className="mt-10 space-y-5 text-base leading-7">
           {renderBody(combo.description).map((block) =>
             block.startsWith("## ") ? (
@@ -68,7 +96,7 @@ export default async function ComboDetailPage({
           <InquiryForm
             defaultType="disenar_viaje"
             title="Quiero este viaje"
-            submitLabel="Pedir este destino"
+            submitLabel="Pedir este combo"
           />
         </div>
       </div>

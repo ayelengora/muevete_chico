@@ -20,8 +20,11 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         <div className="grid grid-cols-2 gap-12 text-sm">
           <div className="flex flex-col gap-2.5">
             <p className="kicker">Sitio</p>
-            <Link href="/combos" className="arrow-link w-fit">
+            <Link href="/destinos" className="arrow-link w-fit">
               Destinos
+            </Link>
+            <Link href="/combos" className="hover:underline">
+              Combos
             </Link>
             <Link href="/blog" className="w-fit hover:underline">
               Blog

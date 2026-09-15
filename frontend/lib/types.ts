@@ -32,6 +32,21 @@ export type Post = {
   updated_at?: string;
 };
 
+export type Destination = {
+  id: number;
+  name: string;
+  slug: string;
+  region?: string;
+  country?: string;
+  blurb?: string;
+  description?: string;
+  cover_url?: string | null;
+  published: boolean;
+  featured: boolean;
+  combos?: Combo[];
+  created_at: string;
+};
+
 export type Combo = {
   id: number;
   title: string;
@@ -43,6 +58,9 @@ export type Combo = {
   excerpt?: string;
   description?: string;
   includes?: string[];
+  itinerary?: string[];
+  places?: string[];
+  destinations?: Pick<Destination, "id" | "name" | "slug" | "cover_url" | "region" | "country">[];
   cover_url?: string | null;
   published: boolean;
   featured: boolean;
@@ -87,6 +105,8 @@ export type InquiryPayload = {
 
 export type HomePayload = {
   settings: SiteSettings;
+  destinations: Destination[];
+  featured_destinations: Destination[];
   featured_combos: Combo[];
   featured_posts: Post[];
   latest_posts: Post[];

@@ -5,6 +5,93 @@ end
 
 SiteSetting.upsert_many!(SiteSetting::DEFAULTS)
 
+destinations = [
+  {
+    name: "Málaga",
+    region: "Costa del Sol",
+    country: "España",
+    featured: true,
+    blurb: "Playa urbana, tapeo y barrios para perderse sin apuro.",
+    cover_url: "https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1600&q=80",
+    description: <<~TEXT
+      Málaga no es solo el aeropuerto de la Costa del Sol. Es alcazaba al atardecer, playa urbana, museos que no aburren y un casco antiguo para caminar con un helado.
+
+      Ideal para una primera vez en Andalucía o para volver y verla con otra onda: Soho, El Palo, Pedregalejo y un ritmo que no copia el top 10.
+    TEXT
+  },
+  {
+    name: "Nerja",
+    region: "Costa Tropical",
+    country: "España",
+    featured: true,
+    blurb: "Balcón de Europa, calas y pueblo frente al mar.",
+    cover_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+    description: <<~TEXT
+      Nerja es villa de postal: Balcón de Europa, casco blanco y calas. Si vas un domingo de agosto sin plan, también de cola.
+
+      Queda a una hora de Málaga. Se arma lindo como escapada o como parte de un combo más largo por la costa.
+    TEXT
+  },
+  {
+    name: "Andalucía",
+    region: "Pueblos blancos y Caminito",
+    country: "España",
+    featured: true,
+    blurb: "Pueblos blancos, miradores y el Caminito del Rey.",
+    cover_url: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80",
+    description: <<~TEXT
+      Andalucía se siente distinto cuando salís de la costa un rato: callejones, miradores, brunch de tapas y el Caminito del Rey con la logística resuelta.
+
+      Málaga suele ser la base. Desde ahí se arman pueblos y día de montaña sin vivir en el auto.
+    TEXT
+  },
+  {
+    name: "Lisboa",
+    region: "Estuario del Tajo",
+    country: "Portugal",
+    featured: true,
+    blurb: "Miradores, tranvía y un ritmo para no terminar hecha bolsa.",
+    cover_url: "https://images.unsplash.com/photo-1585208798174-aafaa50924c6?auto=format&fit=crop&w=1600&q=80",
+    description: <<~TEXT
+      Lisboa se disfruta despacio: subidas, luces y un atardecer que pide vino, no checklist.
+
+      Un barrio para volver a dormir, dos o tres anclas por día y, si el tiempo ayuda, un escape a Sintra o Cascais.
+    TEXT
+  },
+  {
+    name: "Puglia",
+    region: "El sur que pega",
+    country: "Italia",
+    featured: true,
+    blurb: "Pueblos blancos, mar adriático y comida de verdad.",
+    cover_url: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1600&q=80",
+    description: <<~TEXT
+      Puglia es mar, trulli y pueblos para perderse. Ostuni, Polignano, Lecce: el sur de Italia sin el circo del norte.
+
+      Se arma mejor con una base, no con un hotel distinto cada noche.
+    TEXT
+  },
+  {
+    name: "Marrakech",
+    region: "Medina y Atlas",
+    country: "Marruecos",
+    featured: true,
+    blurb: "Riads, zocos y un día en las montañas.",
+    cover_url: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=1600&q=80",
+    description: <<~TEXT
+      Marrakech pide un riad lindo y un plan para no marearte en la medina. Después, Atlas o Essaouira.
+
+      Ciudad, un día afuera y tiempo para no hacer nada en la terraza.
+    TEXT
+  }
+]
+
+destinations.each do |attrs|
+  item = Destination.find_or_initialize_by(name: attrs[:name])
+  item.assign_attributes(attrs.merge(published: true))
+  item.save!
+end
+
 combos = [
   {
     title: "Málaga con style",
@@ -15,6 +102,13 @@ combos = [
     featured: true,
     excerpt: "La ciudad que más me pide la gente: playa, tapeo, arte y barrios para perderse sin apuro.",
     cover_url: "https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1600&q=80",
+    places: "malaga",
+    itinerary: <<~TEXT,
+      Día 1 — Llegada, check-in y tapeo en el centro (sin Larios a las 14 hs)
+      Día 2 — Alcazaba, casco y atardecer en La Malagueta
+      Día 3 — Barrio (Soho o El Palo) y playa urbana
+      Día 4 — Mañana libre o pueblo cercano y vuelo
+    TEXT
     includes: "Itinerario día por día\nBarrios y miradores locales\nReservas de tapeo y planes al atardecer\nWhatsApp durante el viaje",
     description: <<~TEXT
       Málaga no es solo el aeropuerto de la Costa del Sol. Es alcazaba al atardecer, playa urbana, museos que no aburren y un casco antiguo para caminar con un helado.
@@ -38,6 +132,15 @@ combos = [
     featured: true,
     excerpt: "Caminito del Rey, un pueblo blanco y Málaga: el combo que más pido cuando me dicen 'quiero Andalucía de verdad'.",
     cover_url: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80",
+    places: "malaga\nandalucia",
+    itinerary: <<~TEXT,
+      Día 1 — Málaga: aterrizaje, barrio y primera noche de tapeo
+      Día 2 — Casco, Alcazaba y ritmo de ciudad
+      Día 3 — Pueblo blanco (callejones, mirador, brunch)
+      Día 4 — Caminito del Rey: entradas, traslado y plan B por clima
+      Día 5 — Playa o El Palo, sin checklist
+      Día 6 — Cierre en Málaga y vuelo
+    TEXT
     includes: "Logística del Caminito (entradas y traslados)\nPueblo blanco con tapeo\nBase en Málaga\nAsesoría previa y seguimiento",
     description: <<~TEXT
       Andalucía se siente distinto cuando salís de la costa un rato. Este combo junta tres cosas que funcionan muy bien juntas:
@@ -58,6 +161,12 @@ combos = [
     featured: true,
     excerpt: "Balcón de Europa, calas y pueblo: la escapada de playa que más recomiendo desde Málaga.",
     cover_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+    places: "nerja\nmalaga",
+    itinerary: <<~TEXT,
+      Día 1 — Málaga de mañana, bus a Nerja, casco y Balcón de Europa
+      Día 2 — Cala (según época y gente) o Cuevas, pueblo al atardecer
+      Día 3 — Último baño y vuelta a Málaga sin el último bus
+    TEXT
     includes: "Cómo llegar en bus o auto\nPlayas y calas según la época\nCuevas de Nerja (si te copa)\nMapa de restaurantes",
     description: <<~TEXT
       Nerja es de esas villas que parecen de postal y, si vas un domingo de agosto sin plan, también de cola. Por eso este combo es corto y preciso: **cuándo ir, cómo llegar desde María Zambrano y dónde meterte al agua**.
@@ -74,6 +183,8 @@ combos = [
     featured: false,
     excerpt: "Asesoría 1:1 para armar el viaje que tenés en la cabeza. Vos contame el sueño, yo te armo el camino.",
     cover_url: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80",
+    places: "",
+    itinerary: "",
     includes: "Call de 45–60 min\nItinerario o presupuesto inicial\nLista de reservas prioritarias\nSeguimiento por WhatsApp",
     description: <<~TEXT
       Este no es un paquete cerrado. Es el servicio de **diseñar tu próximo viaje**: fechas, presupuesto, ritmo, si viajás sola, en pareja o con amigas.
@@ -96,6 +207,14 @@ combos = [
     featured: true,
     excerpt: "Miradores, tranvía, pastel de nata y un ritmo para caminar la ciudad sin terminar hecha bolsa.",
     cover_url: "https://images.unsplash.com/photo-1585208798174-aafaa50924c6?auto=format&fit=crop&w=1600&q=80",
+    places: "lisboa",
+    itinerary: <<~TEXT,
+      Día 1 — Barrio (Alfama o Graça), mirador y cena sin prisa
+      Día 2 — Centro, tranvía y un atardecer con vino
+      Día 3 — Príncipe Real / Chiado, restaurantes que cierran
+      Día 4 — Sintra o Cascais, según el clima
+      Día 5 — Mañana lenta y vuelo
+    TEXT
     includes: "Barrios para dormir (Alfama, Graça o Príncipe Real)\nItinerario de miradores\nDía a Sintra o cascais según el clima\nReservas de restaurantes",
     description: <<~TEXT
       Lisboa se disfruta despacio: subidas, luces y un atardecer que pide vino, no checklist.
@@ -112,6 +231,16 @@ combos = [
     featured: true,
     excerpt: "Pueblos blancos, mar adriático y comida de verdad. El sur de Italia sin el circo del norte.",
     cover_url: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1600&q=80",
+    places: "puglia",
+    itinerary: <<~TEXT,
+      Día 1 — Llegada y base (no hotel distinto cada noche)
+      Día 2 — Pueblo blanco y mar
+      Día 3 — Polignano o costa, según el calor
+      Día 4 — Lecce y comida de verdad
+      Día 5 — Playa / masseria
+      Día 6 — Un pueblo extra sin matar el auto
+      Día 7 — Cierre y salida
+    TEXT
     includes: "Ruta Ostuni–Polignano–Lecce\nDónde dormir (base, no hotel distinto cada noche)\nPlayas y masseria\nTraslados realistas",
     description: <<~TEXT
       Puglia es mar, trulli y pueblos para perderse. Este combo ordena una semana para no estar todo el día en el auto.
@@ -128,6 +257,15 @@ combos = [
     featured: true,
     excerpt: "Medina, riads y un día en las montañas. Marruecos de cerca, sin tour de 40 personas.",
     cover_url: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=1600&q=80",
+    places: "marrakech",
+    itinerary: <<~TEXT,
+      Día 1 — Riad en la medina, rooftop y primer zoco con mapa
+      Día 2 — Medina con ritmo, no 40 plazas
+      Día 3 — Jardines y terraza
+      Día 4 — Atlas o Essaouira
+      Día 5 — Vuelta a la ciudad, compras justas
+      Día 6 — Mañana lenta y salida
+    TEXT
     includes: "Riad en la medina\nMapa de zocos y rooftops\nExcursión al Atlas o Essaouira\nTips de plata, vestimenta y ritmos",
     description: <<~TEXT
       Marrakech pide un riad lindo y un plan para no marearte en la medina. Después, montaña o costa.
@@ -276,4 +414,4 @@ reviews.each do |attrs|
   end
 end
 
-puts "Listo: #{AdminUser.count} admin, #{Combo.count} combos, #{Post.count} blogs, #{Review.count} reviews."
+puts "Listo: #{AdminUser.count} admin, #{Destination.count} destinos, #{Combo.count} combos, #{Post.count} blogs, #{Review.count} reviews."

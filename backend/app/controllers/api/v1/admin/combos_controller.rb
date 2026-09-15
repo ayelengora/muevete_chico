@@ -34,7 +34,7 @@ class Api::V1::Admin::CombosController < Api::V1::Admin::BaseController
   def combo_params
     params.permit(
       :title, :slug, :destination, :duration, :price_from, :currency,
-      :excerpt, :description, :includes, :cover_url, :published, :featured
+      :excerpt, :description, :includes, :itinerary, :places, :cover_url, :published, :featured
     )
   end
 end

@@ -1,6 +1,6 @@
 class Api::V1::CombosController < ApplicationController
   def index
-    combos = Combo.published.recent
+    combos = Combo.published.select(&:closed_trip?).sort_by(&:created_at).reverse
     render json: combos.map { |combo| combo.as_json }
   end
 
