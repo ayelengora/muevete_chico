@@ -1,4 +1,6 @@
-import { DestinationCard } from "@/components/site/Cards";
+import { DestinationCard, mosaicClass } from "@/components/site/Cards";
+import { PageIntro } from "@/components/site/PageIntro";
+import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
 import Link from "next/link";
 
@@ -9,31 +11,40 @@ export default async function CombosPage() {
   const destinations = combos.filter((combo) => combo.destination !== "A donde quieras ir");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:py-16">
-      <p className="kicker">Elegí un lugar</p>
-      <h1 className="mt-3 font-heading text-4xl leading-[1.08] sm:text-5xl">Destinos</h1>
-      <p className="mt-4 max-w-xl text-muted-foreground">
+    <div className="pb-16 sm:pb-20">
+      <PageIntro kicker="Elegí un lugar" title="Destinos">
         Lugares que ya recorrí o que diseño con vos. Ritmo y presupuesto a medida.
-      </p>
+      </PageIntro>
       {destinations.length === 0 ? (
-        <p className="mt-10 text-muted-foreground">Todavía no hay destinos publicados.</p>
+        <p className="mx-auto max-w-[1400px] px-4 pt-10 text-muted-foreground sm:px-6">
+          Todavía no hay destinos publicados.
+        </p>
       ) : (
-        <div className="mt-10 grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-[1400px] gap-3 px-4 sm:px-6 md:grid-cols-12">
           {destinations.map((combo, index) => (
-            <DestinationCard key={combo.id} combo={combo} featured={index === 0} />
+            <Reveal key={combo.id} delay={index * 70} className={`${mosaicClass(index)} h-full`}>
+              <DestinationCard
+                combo={combo}
+                index={index + 1}
+                kenburns={index === 0}
+                className="h-full"
+              />
+            </Reveal>
           ))}
         </div>
       )}
-      <Link
-        href="/contacto?tipo=disenar_viaje"
-        className="mt-12 flex flex-col gap-3 rounded-[1.7rem] bg-ink px-6 py-7 text-cream sm:flex-row sm:items-center sm:justify-between sm:px-8"
-      >
-        <div>
-          <h2 className="font-heading text-2xl">Otro destino</h2>
-          <p className="mt-1 text-sm text-white/70">Si no está en la lista, lo armamos.</p>
-        </div>
-        <span className="w-fit rounded-full bg-cream px-4 py-2 text-sm text-ink">Charlemos</span>
-      </Link>
+      <Reveal className="mx-auto mt-12 max-w-[1400px] px-4 sm:px-6">
+        <Link
+          href="/contacto?tipo=disenar_viaje"
+          className="group block overflow-hidden rounded-[2rem] bg-ink px-7 py-12 text-cream sm:px-12"
+        >
+          <h2 className="display text-[clamp(2rem,5vw,3.8rem)]">Otro destino</h2>
+          <p className="mt-3 max-w-md text-white/70">Si no está en la lista, lo armamos.</p>
+          <span className="cta-pill is-light mt-6">
+            Charlemos <span className="arrow">→</span>
+          </span>
+        </Link>
+      </Reveal>
     </div>
   );
 }

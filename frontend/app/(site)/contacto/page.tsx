@@ -1,5 +1,6 @@
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { InstagramIcon } from "@/components/brand/Marks";
+import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
 
 export const metadata = { title: "Contacto" };
@@ -13,24 +14,24 @@ export default async function ContactoPage({
   const settings = await api.settings();
 
   return (
-    <div className="mx-auto grid max-w-5xl gap-12 px-4 py-10 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-      <div>
+    <div className="mx-auto grid max-w-6xl gap-12 px-4 py-12 sm:py-16 lg:grid-cols-[1fr_1.05fr] lg:items-end">
+      <Reveal>
         <p className="kicker">Asesorías 1:1</p>
-        <h1 className="mt-3 font-heading text-4xl leading-[1.08] sm:text-5xl">
+        <h1 className="display mt-4 max-w-[10ch] text-[clamp(2.8rem,8vw,5.8rem)]">
           ¿Te querés ir? charlemos
         </h1>
-        <p className="mt-4 max-w-md text-lg leading-relaxed text-muted-foreground">
+        <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
           Una call para ordenar destino, fechas y presupuesto. Respondo por mail o WhatsApp.
         </p>
-        <ul className="mt-8 space-y-3 text-sm">
-          <li className="surface px-4 py-3">Asesoría 1:1</li>
-          <li className="surface px-4 py-3">Viaje a medida</li>
-          <li className="surface px-4 py-3">
+        <ul className="mt-10 space-y-4 text-sm">
+          <li className="border-l-2 border-butter pl-4">Asesoría 1:1</li>
+          <li className="border-l-2 border-butter pl-4">Viaje a medida</li>
+          <li className="border-l-2 border-butter pl-4">
             <a href={`mailto:${settings.email}`} className="hover:underline">
               {settings.email}
             </a>
           </li>
-          <li className="surface px-4 py-3">
+          <li className="border-l-2 border-butter pl-4">
             <a
               href={settings.instagram_url}
               target="_blank"
@@ -42,8 +43,10 @@ export default async function ContactoPage({
             </a>
           </li>
         </ul>
-      </div>
-      <InquiryForm defaultType={tipo || "asesoria_1a1"} />
+      </Reveal>
+      <Reveal delay={120}>
+        <InquiryForm defaultType={tipo || "asesoria_1a1"} />
+      </Reveal>
     </div>
   );
 }

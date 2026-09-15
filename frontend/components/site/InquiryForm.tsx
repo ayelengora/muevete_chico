@@ -50,7 +50,7 @@ export function InquiryForm({
 
   return (
     <form onSubmit={onSubmit} className="surface space-y-4 p-6 sm:p-7">
-      <h3 className="font-heading text-2xl">{title}</h3>
+      <h3 className="font-heading text-[1.7rem] leading-tight">{title}</h3>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Tu nombre" name="name" required />
         <Field label="Email" name="email" type="email" required />
@@ -84,6 +84,7 @@ export function InquiryForm({
       </div>
       <Button type="submit" disabled={status === "loading"} className="h-10 rounded-full px-5">
         {status === "loading" ? "Enviando..." : submitLabel}
+        {status === "loading" ? null : <span className="ml-1">→</span>}
       </Button>
       {message ? (
         <p className={status === "error" ? "text-sm text-destructive" : "text-sm text-sea"}>
