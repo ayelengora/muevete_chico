@@ -12,7 +12,7 @@ destinations = [
     country: "España",
     featured: true,
     blurb: "Playa urbana, tapeo y barrios para perderse sin apuro.",
-    cover_url: "https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/malaga.jpg",
     description: <<~TEXT
       Málaga no es solo el aeropuerto de la Costa del Sol. Es alcazaba al atardecer, playa urbana, museos que no aburren y un casco antiguo para caminar con un helado.
 
@@ -25,7 +25,7 @@ destinations = [
     country: "España",
     featured: true,
     blurb: "Balcón de Europa, calas y pueblo frente al mar.",
-    cover_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/nerja.jpg",
     description: <<~TEXT
       Nerja es villa de postal: Balcón de Europa, casco blanco y calas. Si vas un domingo de agosto sin plan, también de cola.
 
@@ -38,7 +38,7 @@ destinations = [
     country: "España",
     featured: true,
     blurb: "Pueblos blancos, miradores y el Caminito del Rey.",
-    cover_url: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/andalucia.jpg",
     description: <<~TEXT
       Andalucía se siente distinto cuando salís de la costa un rato: callejones, miradores, brunch de tapas y el Caminito del Rey con la logística resuelta.
 
@@ -51,7 +51,7 @@ destinations = [
     country: "Portugal",
     featured: true,
     blurb: "Miradores, tranvía y un ritmo para no terminar hecha bolsa.",
-    cover_url: "https://images.unsplash.com/photo-1585208798174-aafaa50924c6?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/lisboa.jpg",
     description: <<~TEXT
       Lisboa se disfruta despacio: subidas, luces y un atardecer que pide vino, no checklist.
 
@@ -64,7 +64,7 @@ destinations = [
     country: "Italia",
     featured: true,
     blurb: "Pueblos blancos, mar adriático y comida de verdad.",
-    cover_url: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/puglia.jpg",
     description: <<~TEXT
       Puglia es mar, trulli y pueblos para perderse. Ostuni, Polignano, Lecce: el sur de Italia sin el circo del norte.
 
@@ -77,7 +77,7 @@ destinations = [
     country: "Marruecos",
     featured: true,
     blurb: "Riads, zocos y un día en las montañas.",
-    cover_url: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/marrakech.jpg",
     description: <<~TEXT
       Marrakech pide un riad lindo y un plan para no marearte en la medina. Después, Atlas o Essaouira.
 
@@ -101,7 +101,7 @@ combos = [
     currency: "EUR",
     featured: true,
     excerpt: "La ciudad que más me pide la gente: playa, tapeo, arte y barrios para perderse sin apuro.",
-    cover_url: "https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/malaga.jpg",
     places: "malaga",
     itinerary: <<~TEXT,
       Día 1 — Llegada, check-in y tapeo en el centro (sin Larios a las 14 hs)
@@ -131,7 +131,7 @@ combos = [
     currency: "EUR",
     featured: true,
     excerpt: "Caminito del Rey, un pueblo blanco y Málaga: el combo que más pido cuando me dicen 'quiero Andalucía de verdad'.",
-    cover_url: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/andalucia.jpg",
     places: "malaga\nandalucia",
     itinerary: <<~TEXT,
       Día 1 — Málaga: aterrizaje, barrio y primera noche de tapeo
@@ -160,7 +160,7 @@ combos = [
     currency: "EUR",
     featured: true,
     excerpt: "Balcón de Europa, calas y pueblo: la escapada de playa que más recomiendo desde Málaga.",
-    cover_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/nerja.jpg",
     places: "nerja\nmalaga",
     itinerary: <<~TEXT,
       Día 1 — Málaga de mañana, bus a Nerja, casco y Balcón de Europa
@@ -182,7 +182,7 @@ combos = [
     currency: "EUR",
     featured: false,
     excerpt: "Asesoría 1:1 para armar el viaje que tenés en la cabeza. Vos contame el sueño, yo te armo el camino.",
-    cover_url: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/a-medida.jpg",
     places: "",
     itinerary: "",
     includes: "Call de 45–60 min\nItinerario o presupuesto inicial\nLista de reservas prioritarias\nSeguimiento por WhatsApp",
@@ -206,7 +206,7 @@ combos = [
     currency: "EUR",
     featured: true,
     excerpt: "Miradores, tranvía, pastel de nata y un ritmo para caminar la ciudad sin terminar hecha bolsa.",
-    cover_url: "https://images.unsplash.com/photo-1585208798174-aafaa50924c6?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/lisboa.jpg",
     places: "lisboa",
     itinerary: <<~TEXT,
       Día 1 — Barrio (Alfama o Graça), mirador y cena sin prisa
@@ -230,7 +230,7 @@ combos = [
     currency: "EUR",
     featured: true,
     excerpt: "Pueblos blancos, mar adriático y comida de verdad. El sur de Italia sin el circo del norte.",
-    cover_url: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/puglia.jpg",
     places: "puglia",
     itinerary: <<~TEXT,
       Día 1 — Llegada y base (no hotel distinto cada noche)
@@ -256,7 +256,7 @@ combos = [
     currency: "EUR",
     featured: true,
     excerpt: "Medina, riads y un día en las montañas. Marruecos de cerca, sin tour de 40 personas.",
-    cover_url: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/marrakech.jpg",
     places: "marrakech",
     itinerary: <<~TEXT,
       Día 1 — Riad en la medina, rooftop y primer zoco con mapa
@@ -287,7 +287,7 @@ posts = [
     destination: "Málaga",
     featured: true,
     excerpt: "Barrios, playa urbana, tapeo y planes al atardecer. La guía que armé después de volver mil veces.",
-    cover_url: "https://images.unsplash.com/photo-1562883676-8c4f66749446?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/blog-malaga.jpg",
     body: <<~TEXT
       Málaga tiene fama de "ciudad de paso" y eso la deja más linda para quien se queda. Acá va cómo la armo yo.
 
@@ -308,7 +308,7 @@ posts = [
     destination: "Nerja",
     featured: true,
     excerpt: "Bus desde María Zambrano, Balcón de Europa, una cala y vuelta a Málaga. El plan corto que más piden.",
-    cover_url: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/blog-nerja.jpg",
     body: <<~TEXT
       Nerja queda a una hora en bus desde la estación de tren María Zambrano. Es una de las villas más turísticas de la provincia, así que el truco es el horario.
 
@@ -329,7 +329,7 @@ posts = [
     destination: "Tips",
     featured: false,
     excerpt: "Orden, presupuesto y tres decisiones que te ahorran semanas de pestañas abiertas a las 2 de la mañana.",
-    cover_url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/blog-tips.jpg",
     body: <<~TEXT
       La gente no se traba por falta de inspiración. Se traba porque abre 40 pestañas y no decide.
 
@@ -351,7 +351,7 @@ posts = [
     destination: "Recursos",
     featured: false,
     excerpt: "Datos en el celu, auto o depto, y el código MUEVETECHICO para ahorrar de verdad.",
-    cover_url: "https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=1600&q=80",
+    cover_url: "/covers/blog-recursos.jpg",
     body: <<~TEXT
       Viajar más barato no es solo el vuelo. Es el chip, el auto y a veces el depto.
 
