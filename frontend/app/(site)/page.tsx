@@ -33,7 +33,7 @@ export default async function HomePage() {
   return (
     <div>
       <section className="hero-stage">
-        <div className="flex flex-col justify-end px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
+        <div className="flex flex-col justify-end px-5 py-12 sm:px-8 md:px-10 lg:px-12 lg:py-16">
           <p className="hero-copy kicker">{s.tagline}</p>
           <h1 className="hero-copy display mt-5 max-w-[11ch] text-[clamp(3rem,8vw,6.4rem)]">
             {s.hero_title}
@@ -58,16 +58,16 @@ export default async function HomePage() {
         {highlight ? (
           <Link
             href={`/destinos/${highlight.slug}`}
-            className="group relative min-h-[72vh] overflow-hidden bg-ink text-cream lg:h-full lg:min-h-0"
+            className="group relative block h-full min-h-[70vh] overflow-hidden bg-ink text-cream md:min-h-full"
           >
             {highlight.cover_url ? (
               <img
                 src={highlight.cover_url}
                 alt=""
-                className="kenburns absolute inset-0 h-full w-full object-cover"
+                className="kenburns h-full min-h-[70vh] w-full object-cover md:min-h-full"
               />
             ) : (
-              <div className="absolute inset-0 bg-[#efe8d3]" />
+              <div className="h-full min-h-[70vh] bg-[#efe8d3] md:min-h-full" />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
