@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { coverSrc } from "@/lib/covers";
 import { formatPrice } from "@/lib/format";
 import type { Combo, Destination, Post } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -14,10 +15,11 @@ export function Cover({
   className?: string;
   kenburns?: boolean;
 }) {
-  if (!src) {
+  const href = coverSrc(src);
+  if (!href) {
     return <div className={cn("bg-[#efe8d3]", className)} />;
   }
-  return <img src={src} alt={alt} className={cn(className, kenburns && "kenburns")} />;
+  return <img src={href} alt={alt} className={cn(className, kenburns && "kenburns")} />;
 }
 
 export function DestinationCard({

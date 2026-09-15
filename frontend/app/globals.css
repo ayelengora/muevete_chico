@@ -300,14 +300,16 @@
 }
 
 .hero-stage {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  min-height: 36rem;
+  overflow: hidden;
 }
-@media (min-width: 48rem) {
+@media (min-width: 40rem) {
   .hero-stage {
-    grid-template-columns: minmax(240px, 0.82fr) minmax(0, 1.18fr);
-    height: calc(100dvh - 4.4rem);
-    min-height: 36rem;
+    min-height: calc(100svh - 4.4rem);
   }
 }
 

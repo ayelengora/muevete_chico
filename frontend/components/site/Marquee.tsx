@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { coverSrc } from "@/lib/covers";
 import type { Destination } from "@/lib/types";
 
 export function DestinationMarquee({ names, reverse = false }: { names: string[]; reverse?: boolean }) {
@@ -42,7 +43,7 @@ export function PhotoMarquee({
             className="relative block h-48 w-[300px] shrink-0 overflow-hidden rounded-[1.4rem] sm:h-60 sm:w-[380px]"
           >
             {place.cover_url ? (
-              <img src={place.cover_url} alt="" className="kenburns h-full w-full object-cover" />
+              <img src={coverSrc(place.cover_url)} alt="" className="h-full w-full object-cover" />
             ) : (
               <div className="h-full w-full bg-[#efe8d3]" />
             )}

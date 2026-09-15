@@ -3,6 +3,7 @@ import { ComboCard, DestinationCard, mosaicClass, PostCard, Stars } from "@/comp
 import { DestinationMarquee, PhotoMarquee } from "@/components/site/Marquee";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
+import { coverSrc, malagaCover } from "@/lib/covers";
 
 export default async function HomePage() {
   let data;
@@ -33,7 +34,7 @@ export default async function HomePage() {
   return (
     <div>
       <section className="hero-stage">
-        <div className="flex flex-col justify-center px-5 py-8 sm:px-8 md:px-10 lg:px-12">
+        <div className="flex min-h-[22rem] flex-[1_1_20rem] flex-col justify-center px-5 py-8 sm:px-8 md:px-10">
           <p className="hero-copy kicker">{s.tagline}</p>
           <h1 className="hero-copy display mt-5 max-w-[11ch] text-[clamp(3rem,8vw,6.4rem)]">
             {s.hero_title}
@@ -55,35 +56,33 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-        {highlight ? (
-          <Link
-            href={`/destinos/${highlight.slug}`}
-            className="group relative block h-full min-h-[70vh] overflow-hidden bg-ink text-cream md:min-h-full"
-          >
-            {highlight.cover_url ? (
-              <img
-                src={highlight.cover_url}
-                alt=""
-                className="kenburns h-full min-h-[70vh] w-full object-cover md:min-h-full"
-              />
-            ) : (
-              <div className="h-full min-h-[70vh] bg-[#efe8d3] md:min-h-full" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
-              <p className="text-[11px] tracking-[0.22em] text-white/70 uppercase">
-                Destino · {highlight.country}
-              </p>
-              <h2 className="mt-3 font-heading text-4xl leading-[0.95] sm:text-6xl">{highlight.name}</h2>
-              <p className="mt-4 text-sm text-white/85">
-                {highlight.blurb}
-                <span className="arrow-link ml-4 text-butter">
-                  Ver lugar <span className="arrow">→</span>
-                </span>
-              </p>
-            </div>
-          </Link>
-        ) : null}
+        <Link
+          href={highlight ? `/destinos/${highlight.slug}` : "/destinos/malaga"}
+          className="relative block min-h-[28rem] flex-[1.25_1_22rem] overflow-hidden bg-ink text-cream"
+        >
+          <img
+            src={coverSrc(highlight?.cover_url) || malagaCover}
+            alt={highlight?.name || "Málaga"}
+            width={1400}
+            height={900}
+            className="block h-full w-full min-h-[28rem] object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
+            <p className="text-[11px] tracking-[0.22em] text-white/70 uppercase">
+              Destino · {highlight?.country || "España"}
+            </p>
+            <h2 className="mt-3 font-heading text-4xl leading-[0.95] sm:text-6xl">
+              {highlight?.name || "Málaga"}
+            </h2>
+            <p className="mt-4 text-sm text-white/85">
+              {highlight?.blurb || "Playa urbana, tapeo y barrios para perderse sin apuro."}
+              <span className="arrow-link ml-4 text-butter">
+                Ver lugar <span className="arrow">→</span>
+              </span>
+            </p>
+          </div>
+        </Link>
       </section>
 
       <DestinationMarquee names={places.map((place) => place.name)} />
