@@ -3,6 +3,7 @@ import { ComboCard, DestinationCard, mosaicClass, PostCard, Stars } from "@/comp
 import { DestinationMarquee, PhotoMarquee } from "@/components/site/Marquee";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
+import { listed, FALLBACK_COMBOS, FALLBACK_DESTINATIONS } from "@/lib/catalog";
 import { coverSrc, malagaCover } from "@/lib/covers";
 
 export default async function HomePage() {
@@ -21,10 +22,11 @@ export default async function HomePage() {
   }
 
   const s = data.settings;
-  const places = data.destinations?.length ? data.destinations : data.featured_destinations || [];
+  const places = listed(data.destinations, listed(data.featured_destinations, FALLBACK_DESTINATIONS));
   const highlight = places.find((place) => place.slug === "malaga") || places[0];
-  const rest = places.filter((place) => place.id !== highlight?.id);
-  const combos = data.featured_combos || [];
+  const mosaic = places.filter((place) => place.id !== highlight?.id);
+  const shownPlaces = mosaic.length > 0 ? mosaic : places;
+  const combos = listed(data.featured_combos, FALLBACK_COMBOS);
   const stories = data.featured_posts.length ? data.featured_posts : data.latest_posts;
   const leadStory = stories[0];
   const moreStories = stories.slice(1, 4);
@@ -102,11 +104,11 @@ export default async function HomePage() {
             </Link>
           </div>
         </Reveal>
-        {rest.length === 0 ? (
+        {shownPlaces.length === 0 ? (
           <p className="text-muted-foreground">Todavía no hay destinos publicados.</p>
         ) : (
           <div className="grid gap-3 md:grid-cols-12">
-            {rest.map((place, index) => (
+            {shownPlaces.map((place, index) => (
               <Reveal key={place.id} delay={index * 80} className={mosaicClass(index)}>
                 <DestinationCard place={place} index={index + 2} className="h-full min-h-[280px]" />
               </Reveal>

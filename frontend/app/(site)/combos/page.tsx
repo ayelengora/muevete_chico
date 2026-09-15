@@ -3,12 +3,19 @@ import { DestinationMarquee } from "@/components/site/Marquee";
 import { PageIntro } from "@/components/site/PageIntro";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
+import { FALLBACK_COMBOS, listed } from "@/lib/catalog";
 import Link from "next/link";
 
 export const metadata = { title: "Combos" };
+export const dynamic = "force-dynamic";
 
 export default async function CombosPage() {
-  const combos = await api.combos();
+  let combos = FALLBACK_COMBOS;
+  try {
+    combos = listed(await api.combos(), FALLBACK_COMBOS);
+  } catch {
+    combos = FALLBACK_COMBOS;
+  }
 
   return (
     <div className="pb-16 sm:pb-20">

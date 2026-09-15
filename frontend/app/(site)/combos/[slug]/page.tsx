@@ -4,6 +4,7 @@ import { Cover } from "@/components/site/Cards";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
+import { comboBySlug } from "@/lib/catalog";
 import { formatPrice, renderBody, renderInline } from "@/lib/format";
 
 export default async function ComboDetailPage({
@@ -12,12 +13,13 @@ export default async function ComboDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let combo;
+  let combo = comboBySlug(slug);
   try {
     combo = await api.combo(slug);
   } catch {
-    notFound();
+    if (!combo) notFound();
   }
+  if (!combo) notFound();
 
   return (
     <article>

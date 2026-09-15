@@ -5,6 +5,7 @@ import { ComboCard } from "@/components/site/Cards";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
+import { destinationBySlug, FALLBACK_COMBOS } from "@/lib/catalog";
 import { renderBody, renderInline } from "@/lib/format";
 
 export default async function DestinationDetailPage({
@@ -13,14 +14,15 @@ export default async function DestinationDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let place;
+  let place = destinationBySlug(slug);
   try {
     place = await api.destination(slug);
   } catch {
-    notFound();
+    if (!place) notFound();
   }
+  if (!place) notFound();
 
-  const combos = place.combos || [];
+  const combos = place.combos?.length ? place.combos : FALLBACK_COMBOS.filter((combo) => combo.places?.includes(place.slug));
 
   return (
     <article>

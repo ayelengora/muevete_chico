@@ -4,11 +4,18 @@ import { DestinationMarquee, PhotoMarquee } from "@/components/site/Marquee";
 import { PageIntro } from "@/components/site/PageIntro";
 import { Reveal } from "@/components/site/Reveal";
 import { api } from "@/lib/api";
+import { FALLBACK_DESTINATIONS, listed } from "@/lib/catalog";
 
 export const metadata = { title: "Destinos" };
+export const dynamic = "force-dynamic";
 
 export default async function DestinosPage() {
-  const destinations = await api.destinations();
+  let destinations = FALLBACK_DESTINATIONS;
+  try {
+    destinations = listed(await api.destinations(), FALLBACK_DESTINATIONS);
+  } catch {
+    destinations = FALLBACK_DESTINATIONS;
+  }
 
   return (
     <div className="pb-16 sm:pb-20">
