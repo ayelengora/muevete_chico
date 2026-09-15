@@ -33,7 +33,7 @@ export default async function HomePage() {
   return (
     <div>
       <section className="hero-stage">
-        <div className="flex flex-col justify-end px-5 py-12 sm:px-8 md:px-10 lg:px-12 lg:py-16">
+        <div className="flex flex-col justify-center px-5 py-8 sm:px-8 md:px-10 lg:px-12">
           <p className="hero-copy kicker">{s.tagline}</p>
           <h1 className="hero-copy display mt-5 max-w-[11ch] text-[clamp(3rem,8vw,6.4rem)]">
             {s.hero_title}
