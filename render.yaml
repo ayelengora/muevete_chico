@@ -1,0 +1,45 @@
+databases: []
+
+services:
+  - type: web
+    name: muevetechico-api
+    runtime: ruby
+    plan: starter
+    rootDir: backend
+    buildCommand: bundle install
+    preDeployCommand: bundle exec rails db:prepare db:seed
+    startCommand: bundle exec puma -C config/puma.rb
+    healthCheckPath: /up
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/production.sqlite3
+      - key: ACTIVE_STORAGE_ROOT
+        value: /var/data/storage
+      - key: APP_PROTOCOL
+        value: https
+
+  - type: web
+    name: muevetechico-web
+    runtime: node
+    plan: starter
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_URL
+        fromService:
+          name: muevetechico-api
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
